@@ -1,0 +1,27 @@
+<div class="col-md-6 offset-md-3">
+<br>
+    <h3> Update Shopping </h3>
+    <form (ngSubmit) = "onSubmit()">
+    
+        <div class="form-group">
+            <label> Code</label>
+            <input type="text" class ="form-control" id = "code"
+                [(ngModel)] = "shopping.code" name = "code">
+        </div>
+    
+        <div class="form-group">
+            <label> Total price</label>
+            <input type="number" class ="form-control" id = "totalPrice"
+                [(ngModel)] = "shopping.totalPrice" name = "totalPrice">
+        </div>
+           
+        <div class="form-group">
+            <label> Date & Time</label>
+            <input type="text" class ="form-control" id = "dateTime"
+                [(ngModel)] = "shopping.dateTime" name = "dateTime">
+        </div>
+    <br>
+        <button class = "btn btn-success" type ="submit">Submit</button>
+    
+    </form>
+    </div> 

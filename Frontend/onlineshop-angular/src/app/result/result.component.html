@@ -1,0 +1,35 @@
+<div class="col-md-6 offset-md-3">
+<br>
+    <h3><strong> Result of shopping:</strong> </h3>
+    <br>
+  	<h3><strong>Date and time: </strong> {{shopping.dateTime}}</h3>	
+  	<br>
+  	<h3><strong>User: </strong> {{user.username}}</h3>	
+  	<br>
+  	<h3><strong>Shopping code: </strong> {{shopping.code}}</h3>	
+  	<br>
+  	<h3><strong>Items: </strong></h3>	
+  	<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Product</th>
+			<th>Product price</th>
+			<th>Item quantity</th>
+			<th>Item price</th>
+		</tr>
+	</thead>
+	<tbody>
+  		<tr *ngFor="let item of items">
+			<td>{{ item.id }}</td>
+			<td>{{ item.productName }}</td>
+			<td>{{ item.productPrice }}</td>
+			<td>{{ item.itemQuantity }}</td>
+			<td>{{ item.itemPrice }}</td>
+		</tr>
+	</tbody>
+	</table>
+	<br>
+  	<h3><strong>Shopping total price: </strong> {{shopping.totalPrice}}</h3>	
+  	<br>
+  </div> 

@@ -1,0 +1,31 @@
+<div class="col-md-6 offset-md-3" *ngIf="showAdmin" >
+<br>
+    <h3> Update User </h3>
+    <form (ngSubmit) = "onSubmit()">
+    
+        <div class="form-group">
+            <label> Username</label>
+            <input type="text" class ="form-control" id = "username"
+                [(ngModel)] = "user.username" name = "username">
+        </div>
+    
+        <div class="form-group">
+            <label> E-mail</label>
+            <input type="text" class ="form-control" id = "email"
+                [(ngModel)] = "user.email" name = "email">
+        </div>
+        
+        <div class="form-group">
+            <label> Password</label>
+            <input type="text" class ="form-control" id = "password"
+                [(ngModel)] = "user.password" name = "password">
+        </div>
+        
+    <br>
+        <button class = "btn btn-success" type ="submit">Submit</button>
+   
+    </form>
+    <br>
+    <br>
+    </div> 
+    

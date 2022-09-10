@@ -1,0 +1,41 @@
+<br>
+<br>
+<h2>Item List</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Pieces</th>
+			<th>Item price</th>
+			<th>Actions</th>
+			<th>Reset</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let item of items">
+			<td>{{ item.id }}</td>
+			<td>{{ item.productName }}</td>
+			<td>{{ item.productQuantity }}</td>
+			<td>{{ item.productPrice }}</td>
+			<td><input type="number" class="form-control"
+				id="itemQuantity" [(ngModel)]="item.itemQuantity"   
+				name="itemQuantity"></td>
+			<td>{{ item.itemPrice }}</td>
+			<td><button (click)="buyItem(item.id,item.itemQuantity)" class="btn btn-primary">Select an item</button></td>
+			<td><button (click)="resetItem(item.id)" class="btn btn-info">Reset</button></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><button (click)="buy()" class="btn btn-danger btn-lg"> Buy </button></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>

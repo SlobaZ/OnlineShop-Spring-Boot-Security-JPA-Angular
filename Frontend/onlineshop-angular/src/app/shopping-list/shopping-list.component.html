@@ -1,0 +1,55 @@
+<div class="col-md-6 offset-md-3">
+<br>
+    <h4> Search shoppings </h4>
+     <div class="form-group">
+    <label> User: </label>
+    <select [(ngModel)]="userId" >
+      <option [defaultSelected]=true [value]="default" >---------------------------</option>
+	  <option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
+	</select>
+	 </div>
+    <div class="form-group">
+       <label> Code: </label>
+            <input  type="text" class="form-control" placeholder="Search by code" [(ngModel)]="code" />
+    </div>
+    <div class="form-group">
+       <label> Total price: </label>
+            <input  type="text" class="form-control" placeholder="Search by total price" [(ngModel)]="totalPrice" />
+    </div>
+     <div class="form-group">
+       <label> Date and time beginning: </label>
+            <input  type="text" class="form-control" placeholder="Search by date and time beginning" [(ngModel)]="dateTimeBeginning" />
+    </div>
+     <div class="form-group">
+       <label> Date and time end: </label>
+            <input  type="text" class="form-control" placeholder="Search by date and time end" [(ngModel)]="dateTimeEnd" />
+    </div>
+    <button class="btn btn-outline-secondary" type="button" (click)="searchShoppings()" > Search </button>
+</div>
+
+<br>
+<h3>SHOPPINGS</h3>
+<table class = "table table-striped">
+    <thead>
+        <tr>
+            <th> Code</th>
+            <th> User </th>
+            <th> Total price </th>
+            <th> Date & Time</th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let shopping of shoppings" >
+            <td> {{ shopping.code }} </td>
+            <td> {{ shopping.userUsername }} </td>
+            <td> {{ shopping.totalPrice }} </td>
+            <td> {{ shopping.dateTime }} </td>
+            <td>
+                <button (click) = "updateShopping(shopping.id)" class = "btn btn-info"> Update</button>
+                <button (click) = "deleteShopping(shopping.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

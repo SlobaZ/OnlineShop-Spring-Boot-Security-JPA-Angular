@@ -1,0 +1,42 @@
+<div *ngIf="showAdmin" >
+<div class="col-md-6 offset-md-3">
+<br>
+    <h4> Search users </h4>
+    <div class="form-group">
+       <label> Username: </label>
+            <input  type="text" class="form-control" placeholder="Search by username" [(ngModel)]="username" />
+    </div>
+    <div class="form-group">
+       <label> E-mail: </label>
+            <input  type="text" class="form-control" placeholder="Search by e-mail" [(ngModel)]="email" />
+    </div>
+    <button class="btn btn-outline-secondary" type="button" (click)="searchUsers()" > Search </button>
+</div>
+
+<br>
+<button (click) = "addUser()" class = "btn btn-success btn-lg"> Add new</button>
+<br>
+<h3>USERS</h3>
+<table class = "table table-striped">
+    <thead>
+        <tr>
+            <th> Username</th>
+            <th> E-mail </th>
+            <th> Password</th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let user of users" >
+            <td> {{ user.username }} </td>
+            <td> {{ user.email }} </td>
+            <td> {{ user.password }} </td>
+            <td>
+                <button (click) = "updateUser(user.id)" class = "btn btn-info"> Update</button>
+                <button (click) = "deleteUser(user.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+

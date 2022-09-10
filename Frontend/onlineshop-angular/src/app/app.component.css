@@ -1,0 +1,23 @@
+.navbar-brand {
+  margin-left: 2%;
+}
+.navbar-nav {
+  width: max-content;
+}
+.nav-item {
+  width: max-content;
+}
+.nav-link{
+  width: max-content;
+  font-size: large;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    height: 20px;
+    background-color: gray;
+    text-align: center;
+    color: white;
+}

@@ -1,0 +1,33 @@
+<div class="col-md-6 offset-md-3" *ngIf="showAdmin" >
+<br>
+    <h3> Create Product </h3>
+    <form (ngSubmit) = "onSubmit()">
+    
+        <div class="form-group">
+            <label> Name</label>
+            <input type="text" class ="form-control" id = "name"
+                [(ngModel)] = "product.name" name = "name">
+        </div>
+        
+        <div class="form-group">
+            <label> Brand</label>
+            <input type="text" class ="form-control" id = "brand"
+                [(ngModel)] = "product.brand" name = "brand">
+        </div>
+    
+        <div class="form-group">
+            <label> Quantity</label>
+            <input type="number"  class ="form-control" id = "quantity"
+                [(ngModel)] = "product.quantity" name = "quantity">
+        </div>
+    
+        <div class="form-group">
+            <label> Price</label>
+            <input type="number"  class ="form-control" id = "price"
+                [(ngModel)] = "product.price" name = "price">
+        </div>
+    <br>
+        <button class = "btn btn-success" type ="submit">Submit</button>
+    
+    </form>
+</div> 
