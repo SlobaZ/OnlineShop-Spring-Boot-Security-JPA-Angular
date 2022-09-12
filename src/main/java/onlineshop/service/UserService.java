@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import onlineshop.models.User;
 
 
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
 	
 	User getById(Long id);
 	List<User> findAll();

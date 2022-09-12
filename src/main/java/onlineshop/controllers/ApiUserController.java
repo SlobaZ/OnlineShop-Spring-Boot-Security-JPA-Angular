@@ -48,6 +48,7 @@ public class ApiUserController {
 	
 	
 	@GetMapping("/sve")
+	@PreAuthorize("hasRole('ADMIN')")
 	ResponseEntity<List<UserDTO>> getAll() {
 		List<User> UserPage = null;
 		UserPage = userService.findAll();
@@ -58,6 +59,7 @@ public class ApiUserController {
 	
 	
 	@GetMapping()
+	@PreAuthorize("hasRole('ADMIN')")
 	ResponseEntity<List<UserDTO>> getAllUsers(
 			@RequestParam(required=false) String username,
 			@RequestParam(required=false) String email,

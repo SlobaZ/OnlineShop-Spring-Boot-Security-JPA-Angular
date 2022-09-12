@@ -30,7 +30,6 @@ import onlineshop.models.Product;
 import onlineshop.models.Item;
 import onlineshop.models.User;
 import onlineshop.repository.UserRepository;
-import onlineshop.security.services.UserDetailsImpl;
 import onlineshop.service.ShoppingService;
 import onlineshop.service.ProductService;
 import onlineshop.service.ItemService;
@@ -65,6 +64,7 @@ public class ApiShoppingController {
 		
 
 	@GetMapping()
+	@PreAuthorize("hasRole('ADMIN')")
 	ResponseEntity<List<ShoppingDTO>> getAllShoppings(
 			@RequestParam(required=false) Long userId, 
 			@RequestParam(required=false) String code, 
@@ -93,6 +93,7 @@ public class ApiShoppingController {
 	
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
 	ResponseEntity<ShoppingDTO> getShoppingById(@PathVariable Integer id){
 		Shopping shopping = shoppingService.getById(id);
 		if(shopping==null){
@@ -143,11 +144,11 @@ public class ApiShoppingController {
 	
 
 	
-	@PostMapping(value="/createshopping")
-	@PreAuthorize("hasRole('USER')")
+	@PostMapping()
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
 	public ResponseEntity<ShoppingDTO> createShopping(){ 
 				
-		UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = String.valueOf ( userDetails.getUsername() );
 		User user = userService.findbyUsername(username);
 
@@ -176,6 +177,7 @@ public class ApiShoppingController {
 	
 	
 	@PostMapping(value="/{id}/buy")
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
 	public ResponseEntity<ShoppingDTO> buy( @PathVariable Integer id) {
 		
 		Shopping shopping = shoppingService.buy(id);

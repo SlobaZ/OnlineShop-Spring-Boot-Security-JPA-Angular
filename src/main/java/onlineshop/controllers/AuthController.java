@@ -31,7 +31,6 @@ import onlineshop.payload.response.MessageResponse;
 import onlineshop.repository.RoleRepository;
 import onlineshop.repository.UserRepository;
 import onlineshop.security.jwt.JwtUtils;
-import onlineshop.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -62,7 +61,7 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		User userDetails = (User) authentication.getPrincipal();		
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());

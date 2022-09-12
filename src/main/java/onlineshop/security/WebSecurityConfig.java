@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import onlineshop.security.jwt.AuthEntryPointJwt;
 import onlineshop.security.jwt.AuthTokenFilter;
-import onlineshop.security.services.UserDetailsServiceImpl;
+import onlineshop.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+	UserService userService;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

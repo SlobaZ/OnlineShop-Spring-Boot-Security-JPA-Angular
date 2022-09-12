@@ -19,7 +19,7 @@ export class ShoppingService {
   }
 
   createShopping(shopping: Shopping): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}/createshopping`, shopping);
+    return this.httpClient.post(`${this.baseURL}`, shopping);
   }
 
   getShoppingById(id: number): Observable<Shopping>{
