@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import onlineshop.models.User;
-import onlineshop.repository.UserRepository;
+import onlineshop.service.UserService;
 import onlineshop.dto.UserDTO;
 
 
@@ -17,18 +17,17 @@ import onlineshop.dto.UserDTO;
 public class UserDTOToUser implements Converter<UserDTO, User> {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Override
 	public User convert(UserDTO dto) {
 		User user = null;
 		
 		if(dto.getId()!=null){
-			user = userRepository.getById(dto.getId());
+			user = userService.getById(dto.getId());
 			
 			if(user == null){
-				throw new IllegalStateException("Tried to "
-						+ "modify a non-existant User");
+				throw new IllegalStateException("Tried to modify a non-existant User");
 			}
 		}
 		else {

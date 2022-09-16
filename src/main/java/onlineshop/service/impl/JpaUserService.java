@@ -22,7 +22,7 @@ public class JpaUserService implements UserService {
 	
 	@Override
 	@Transactional
-	public User  loadUserByUsername(String username) throws UsernameNotFoundException {
+	public User loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
@@ -75,6 +75,18 @@ public class JpaUserService implements UserService {
 	@Override
 	public User findbyUsername(String username) {
 		return userRepository.findbyUsername(username);
+	}
+
+
+	@Override
+	public Boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+
+	@Override
+	public Boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
 	}
 
 

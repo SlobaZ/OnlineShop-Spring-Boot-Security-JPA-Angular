@@ -29,18 +29,19 @@ import onlineshop.payload.request.SignupRequest;
 import onlineshop.payload.response.JwtResponse;
 import onlineshop.payload.response.MessageResponse;
 import onlineshop.repository.RoleRepository;
-import onlineshop.repository.UserRepository;
 import onlineshop.security.jwt.JwtUtils;
+import onlineshop.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -76,13 +77,13 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+		if (userService.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (userService.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
@@ -124,7 +125,7 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
-		userRepository.save(user);
+		userService.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}

@@ -9,8 +9,8 @@ import onlineshop.models.Role;
 import onlineshop.models.ERole;
 import onlineshop.models.User;
 import onlineshop.repository.RoleRepository;
-import onlineshop.repository.UserRepository;
 import onlineshop.service.ShoppingService;
+import onlineshop.service.UserService;
 import onlineshop.service.ProductService;
 import onlineshop.service.ItemService;
 import onlineshop.utils.AssignCategory;
@@ -25,7 +25,7 @@ import onlineshop.models.Item;
 public class TestData {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 		
 	@Autowired
 	private RoleRepository roleRepository;
@@ -59,28 +59,28 @@ public class TestData {
 		user1.setUsername("Admin");
 		user1.setEmail("admin@gmail.com");
 		user1.setPassword("$2a$10$rEMzVllGDznHFZbUhJH0n.fRIR33o3QXysUTFKzsbKwF5V28GK0XC");    // administrator
-		user1 = userRepository.save(user1);
+		user1 = userService.save(user1);
 		
 		User user2 = new User();
 		user2.setUsername("PeraPeric");
 		user2.setEmail("pera@gmail.com");
 		user2.setPassword("$2a$10$Locf9fRBO84ejEc/bQFEROChVsd2ixjv4M2kYX6KSLp74iacK.N3W");    // 123456
-		user2 = userRepository.save(user2);
+		user2 = userService.save(user2);
 		
 		User user3 = new User();
 		user3.setUsername("VasaVasic");
 		user3.setEmail("vasa@gmail.com");
 		user3.setPassword("$2a$10$bwQVsArIQJtmkPckmfRZGOEMAGBXcHaziXIEgstc9ePsPG6sYEFK.");    // 654321
-		user3 = userRepository.save(user3);
+		user3 = userService.save(user3);
 		
 		
 		user1.addRole(role1);
 		user1.addRole(role2);
 		user2.addRole(role2);
 		user3.addRole(role2);
-		userRepository.save(user1);
-		userRepository.save(user2);
-		userRepository.save(user3);
+		userService.save(user1);
+		userService.save(user2);
+		userService.save(user3);
 		
 		
 		Product product1 = new Product();

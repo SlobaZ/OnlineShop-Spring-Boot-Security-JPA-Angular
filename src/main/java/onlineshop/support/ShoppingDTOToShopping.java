@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 
 import onlineshop.dto.ShoppingDTO;
 import onlineshop.models.User;
-import onlineshop.repository.UserRepository;
 import onlineshop.models.Shopping;
 
 import onlineshop.service.ShoppingService;
+import onlineshop.service.UserService;
 import onlineshop.utils.AuxiliaryClass;
 
 
@@ -23,12 +23,12 @@ public class ShoppingDTOToShopping implements Converter<ShoppingDTO, Shopping>{
 	private ShoppingService shoppingService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Override
 	public Shopping convert(ShoppingDTO shoppingDTO) {
 		
-		User user = userRepository.getById(shoppingDTO.getUserId());
+		User user = userService.getById(shoppingDTO.getUserId());
 		if(user!=null) {
 		Shopping shopping = null;
 		

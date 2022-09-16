@@ -29,7 +29,6 @@ import onlineshop.models.Shopping;
 import onlineshop.models.Product;
 import onlineshop.models.Item;
 import onlineshop.models.User;
-import onlineshop.repository.UserRepository;
 import onlineshop.service.ShoppingService;
 import onlineshop.service.ProductService;
 import onlineshop.service.ItemService;
@@ -48,10 +47,7 @@ public class ApiShoppingController {
 	
 	@Autowired
 	private ShoppingToShoppingDTO toDTO;
-	 	
-	@Autowired
-	private UserRepository userRepository;
-	
+	 		
 	@Autowired
 	private ProductService productService;
 	
@@ -127,7 +123,7 @@ public class ApiShoppingController {
 		persisted.setTotalPrice(shoppingDTO.getTotalPrice());
 		persisted.setDateTime(shoppingDTO.getDateTime());
 		
-		User user = userRepository.getById(shoppingDTO.getUserId());
+		User user = userService.getById(shoppingDTO.getUserId());
 		persisted.setUser(user);
 		
 		shoppingService.save(persisted);

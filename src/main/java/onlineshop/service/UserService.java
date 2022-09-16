@@ -24,5 +24,9 @@ public interface UserService extends UserDetailsService{
 			 int pageNum);
 	
 	User findbyUsername(String username);
+	
+	Boolean existsByUsername(String username);
+
+	Boolean existsByEmail(String email);
 
 }
