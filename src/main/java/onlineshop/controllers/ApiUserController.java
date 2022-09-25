@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -45,6 +46,9 @@ public class ApiUserController {
 	
 	@Autowired
 	private UserDTOToUser toUser;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 	
 	
 	@GetMapping("/sve")
@@ -133,7 +137,7 @@ public class ApiUserController {
 		User persisted = userService.getById(id);
 		persisted.setUsername(userDTO.getUsername());
 		persisted.setEmail(userDTO.getEmail());
-		persisted.setPassword(userDTO.getPassword());
+		persisted.setPassword(encoder.encode(userDTO.getPassword()));
 		
 		userService.save(persisted);
 		

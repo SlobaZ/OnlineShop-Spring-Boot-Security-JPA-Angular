@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import onlineshop.models.User;
@@ -18,6 +19,9 @@ public class UserDTOToUser implements Converter<UserDTO, User> {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	public User convert(UserDTO dto) {
@@ -37,7 +41,7 @@ public class UserDTOToUser implements Converter<UserDTO, User> {
 		user.setId(dto.getId());
 		user.setUsername(dto.getUsername());
 		user.setEmail(dto.getEmail());
-		user.setPassword(dto.getPassword());
+		user.setPassword(encoder.encode(dto.getPassword()));
 		
 		return user;
 	}
