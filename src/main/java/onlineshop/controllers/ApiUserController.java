@@ -137,8 +137,12 @@ public class ApiUserController {
 		User persisted = userService.getById(id);
 		persisted.setUsername(userDTO.getUsername());
 		persisted.setEmail(userDTO.getEmail());
+		if(persisted.getPassword().equals(userDTO.getPassword())) {
+			persisted.setPassword(userDTO.getPassword());
+		}
+		else {
 		persisted.setPassword(encoder.encode(userDTO.getPassword()));
-		
+		}
 		userService.save(persisted);
 		
 		return new ResponseEntity<>(toDTO.convert(persisted), HttpStatus.OK);
