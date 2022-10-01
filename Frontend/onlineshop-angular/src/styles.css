@@ -1,1 +1,240 @@
 /* You can add global styles to this file, and also import other style files */
+
+.form-control{
+	border: 1px solid gray;
+	box-shadow: 3px 2px #ccc;
+}
+.searchP{
+	font-size:30px;
+}
+.listP{
+	font-size:30px;
+}
+.createupdateP{
+	font-size:30px;
+}
+.resultP{
+	font-size:30px;
+}
+
+
+table{
+	font-size: 17px;
+}
+thead {
+  background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+  color: white;
+} 
+thead:hover {
+  background: linear-gradient(#006699 , #33CCFF 47% 53% , #006699 );
+  text-shadow: 1px 1px #900000;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background: linear-gradient(white , #fcfcfc 47% 53% , white );
+}
+ .table-hover tbody tr:hover td, 
+ .table-hover tbody tr:hover th {
+  background: linear-gradient(#e6e6e6 , #F0FFFF 45% 55% , #e6e6e6 );color:black;
+  text-shadow: 1px 0.5px black;  
+}
+
+
+
+
+.btn {
+    padding: 7px 7px;
+    letter-spacing: 1px;
+    border: 1px solid black;
+    font-size: 17px;
+	font-weight:bold;
+}
+.btn-search{
+	color: white;
+	background: linear-gradient(lightgray , #505050 45% 55% , lightgray );
+}
+.btn-search:hover{
+	color: black;
+	background: linear-gradient(gray , white 45% 55% , gray);
+	border: 1px solid black;
+}
+.btn-add{
+	color: white; 
+	background: linear-gradient(#66FF00 , #003300 45% 55% , #66FF00 );
+}
+.btn-add:hover{
+	color: black;
+	background: linear-gradient(#009900 , white 45% 55%, #009900 );
+	border: 1px solid black;
+}
+.btn-select{
+	color: white;
+	background: linear-gradient(#00CC99 , #006699 45% 55% , #00CC99 );
+}
+.btn-select:hover{
+	color: black;
+	background: linear-gradient(#00CC99 , white 45% 55% , #00CC99 );
+	border: 1px solid black;
+}
+.btn-update{
+	color: white;
+	background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+}
+.btn-update:hover{
+	color: black;
+	background: linear-gradient(#006699 , white 45% 55% , #006699 );
+	border: 1px solid black;
+}
+.btn-delete{
+	color: white;
+	background: linear-gradient(#FF3300 , #990033 45% 55% , #FF3300 );
+}
+.btn-delete:hover{
+	color: black;
+	background: linear-gradient(#FF0033 , white 45% 55% , #FF0033 );
+	border: 1px solid black;
+}
+.btn-submit{
+	color: white;
+	background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+}
+.btn-submit:hover{
+	color: black; 
+	background: linear-gradient(#006699 , white 45% 55% , #006699 );              
+	border: 1px solid black;
+	box-shadow: 3px 3px #ccc;
+}
+
+.btn-buy{
+	padding: 10px 12px;
+	font-size: 20px;
+	color: white;
+	background: linear-gradient(#FF3300 , #990033 45% 55% , #FF3300 );
+}
+.btn-buy:hover{
+	color: black;
+	background: linear-gradient(#FF0033 , white 45% 55% , #FF0033 );
+	border: 1px solid black;
+}
+
+
+
+/*    */
+
+@media screen and (min-width: 1401px) and (max-width: 1700px) {	
+.searchP{
+	font-size:24px;
+}
+.listP{
+	font-size:28px;
+}
+.createupdateP{
+	font-size:28px;
+}
+.resultP{
+	font-size:24px;
+}
+table{
+	font-size: 16px;
+}
+.btn {
+    padding: 6px 6px;
+    letter-spacing: 0.75px;
+    font-size: 16px;
+}
+.btn-buy{
+	padding: 8px 10px;
+	font-size: 18px;
+}
+}
+
+
+/*    */
+
+@media screen and (min-width: 1151px) and (max-width: 1400px) {
+.searchP{
+	font-size:22px;
+}
+.listP{
+	font-size:26px;
+}
+.createupdateP{
+	font-size:26px;
+}
+.resultP{
+	font-size:22px;
+}
+table{
+	font-size: 14px;
+}
+.btn {
+    padding: 5px 5px;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+.btn-buy{
+	padding: 8px 10px;
+	font-size: 18px;
+}
+}
+
+
+
+/*    */
+
+@media screen and (min-width: 1051px) and (max-width: 1150px) {
+.searchP{
+	font-size:20px;
+}
+.listP{
+	font-size:24px;
+}
+.createupdateP{
+	font-size:24px;
+}
+.resultP{
+	font-size:20px;
+}
+table{
+	font-size: 12px;
+}
+.btn {
+    padding: 4px 4px;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+}
+.btn-buy{
+	padding: 7px 14px;
+	font-size: 17px;
+}
+}
+
+
+/*   */ 
+
+@media screen and (max-width: 1050px) {
+.searchP{
+	font-size:18px;
+}
+.listP{
+	font-size:22px;
+}
+.createupdateP{
+	font-size:22px;
+}
+.resultP{
+	font-size:18px;
+}
+table{
+	font-size: 10px;
+}
+.btn {
+    padding: 3px 3px;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+}
+.btn-buy{
+	padding: 6px 12px;
+	font-size: 16px;
+}
+}

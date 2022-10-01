@@ -1,9 +1,9 @@
 <div id="app">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  		<div className="logo">
-        	<img src="assets/images/logo.jpg" width="50" height="50" alt="logo" />
+  <nav class="navbar navbar-expand-md">
+  		<div class="logo">
+        	<img src="assets/images/logo.jpg"  alt="logo" />
         </div>
-    <a href="#" class="navbar-brand">OnlineShop</a>
+    <a href="#" class="navbar-brand"> OnlineShop</a>
     <ul class="navbar-nav mr-auto ml-4" routerLinkActive="active">
       <li class="nav-item ml-2">
         <a href="/products" class="nav-link" routerLink="products">Products </a>
@@ -38,8 +38,11 @@
     </ul>
   </nav>
 
-  <div class="container">
-    <router-outlet></router-outlet>
+  <div class="container-fluid">
+  		<div id="screensize">
+    		<router-outlet></router-outlet>
+  		</div>
   </div>
+  
   
 </div>

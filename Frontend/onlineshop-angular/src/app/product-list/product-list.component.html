@@ -1,6 +1,6 @@
-<div class="col-md-6 offset-md-3">
-<br>
-    <h4> Search products </h4>
+
+<div class="col-md-4 offset-md-3">
+    <p class="searchP"> Search products </p>
     <div class="form-group">
        <label> Name: </label>
             <input  type="text" class="form-control" placeholder="Search by name" [(ngModel)]="name" />
@@ -20,13 +20,15 @@
        <label> Price: </label>
             <input  type="text" class="form-control" placeholder="Search by price" [(ngModel)]="price" />
     </div>
-    <button class="btn btn-outline-secondary" type="button" (click)="searchProducts()" > Search </button>
+    <button class="btn btn-search" type="button" (click)="searchProducts()" > <i class='fas fa-search'></i> Search </button>
 </div>
 <br>
-<button (click) = "addProduct()" class = "btn btn-success btn-lg" *ngIf="showAdmin" > Add new</button>
+<button (click) = "addProduct()" class = "btn btn-add" *ngIf="showAdmin" > <i class='fas fa-plus'></i> Add new</button>
 <br>
-<h3>PRODUCTS</h3>
-<table class = "table table-striped">
+<br>
+<p class="listP"> Product List</p>
+<div class="table-responsive">
+<table class = "table table-striped table-bordered table-hover">
     <thead>
         <tr>
             <th> Name</th>
@@ -45,10 +47,11 @@
             <td> {{ product.price }} </td>
             <td> {{ product.category }} </td>
             <td *ngIf="showAdmin" >
-                <button (click) = "updateProduct(product.id)" class = "btn btn-info"> Update</button>
-                <button (click) = "deleteProduct(product.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+                <button (click) = "updateProduct(product.id)" class = "btn btn-update"> <i class='fas fa-pencil-alt'></i> Update</button>
+                <button (click) = "deleteProduct(product.id)" class = "btn btn-delete" style="margin-left: 10px"> <i class='fas fa-trash-alt'></i> Delete</button>
             </td>
         </tr>
     </tbody>
 </table>
-
+<br>
+</div>

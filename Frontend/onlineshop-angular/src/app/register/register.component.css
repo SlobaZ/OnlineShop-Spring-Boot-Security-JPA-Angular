@@ -4,21 +4,22 @@ label {
 }
 
 .card-container.card {
+	margin-top:150px;
   max-width: 400px !important;
   padding: 40px 40px;
 }
 
 .card {
-  background-color: #f7f7f7;
+  background-color: #E8E8E8;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
@@ -29,4 +30,32 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+  border: 1px solid gray;
 }
+
+
+@media screen and (min-width: 1401px) and (max-width: 1700px) {	
+.card-container.card {
+  margin-top:130px;
+}
+}
+
+@media screen and (min-width: 1151px) and (max-width: 1400px) {	
+.card-container.card {
+  margin-top:120px;
+}
+}
+
+@media screen and (min-width: 1051px) and (max-width: 1150px) {	
+.card-container.card {
+  margin-top:110px;
+}
+}
+
+@media screen and (max-width: 1050px) {
+.card-container.card {
+  margin-top:100px;
+}
+}
+
+

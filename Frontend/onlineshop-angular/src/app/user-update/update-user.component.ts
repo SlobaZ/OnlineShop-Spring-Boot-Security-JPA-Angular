@@ -51,4 +51,11 @@ export class UpdateUserComponent implements OnInit {
   goToUserList(){
     this.router.navigate(['/users']);
   }
+
+
+  cancel(){
+	this.goToUserList();
+  }
+
+
 }

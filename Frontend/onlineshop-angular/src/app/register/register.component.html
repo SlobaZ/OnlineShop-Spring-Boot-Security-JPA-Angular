@@ -71,16 +71,16 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign Up</button>
+        <button class="btn btn-submit btn-block">Sign Up</button>
       </div>
 
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+      <i class='fas fa-exclamation-triangle' style='font-size:24px;color:red'></i>&#160;  Signup failed!<br />{{ errorMessage }}
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
+     <i class='fas fa-check-circle' style='font-size:24px;color:green'></i>&#160;&#160; Your registration is successful!
     </div>
   </div>
 </div>

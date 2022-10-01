@@ -53,4 +53,11 @@ export class UpdateProductComponent implements OnInit {
   goToProductList(){
     this.router.navigate(['/products']);
   }
+
+  cancel(){
+	this.goToProductList();
+  }
+
+
+
 }

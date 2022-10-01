@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">
+        <button class="btn btn-submit btn-block">
           Login
         </button>
       </div>
@@ -63,13 +63,13 @@
           role="alert"
           *ngIf="f.submitted && isLoginFailed"
         >
-          Login failed: {{ errorMessage }}
+       <i class='fas fa-exclamation-triangle' style='font-size:24px;color:red'></i> &#160;  Login failed: &#160; {{ errorMessage }}
         </div>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
+    <div class="alert alert-success" *ngIf="isLoggedIn"> 
+    <i class='fas fa-check-circle' style='font-size:24px;color:green'></i>&#160;&#160;  Logged in as &#160; {{ roles }}
     </div>
   </div>
 </div>

@@ -50,4 +50,11 @@ export class CreateProductComponent implements OnInit {
     console.log(this.product);
     this.saveProduct();
   }
+
+
+  cancel(){
+	this.goToProductList();
+  }
+
+
 }
