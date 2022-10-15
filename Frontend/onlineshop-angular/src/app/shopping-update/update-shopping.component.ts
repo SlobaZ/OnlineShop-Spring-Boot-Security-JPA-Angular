@@ -54,4 +54,9 @@ export class UpdateShoppingComponent implements OnInit {
   goToShoppingList(){
     this.router.navigate(['/shoppings']);
   }
+
+
+  cancel(){
+	this.goToShoppingList();
+  }
 }

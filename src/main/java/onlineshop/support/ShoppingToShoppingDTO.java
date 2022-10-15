@@ -22,13 +22,13 @@ public class ShoppingToShoppingDTO implements Converter<Shopping, ShoppingDTO>{
 		retValue.setId(shopping.getId());
 		retValue.setCode(shopping.getCode());
 		retValue.setTotalPrice(shopping.getTotalPrice());
-		if(shopping.getDateTimeT()==null) {
+		if(shopping.getDateTime()==null) {
 			retValue.setDateTimeT(AuxiliaryClass.EntriesPresentDateAndTimeSql());
 			retValue.setDateTime(AuxiliaryClass.ViewsTextualDateTime(AuxiliaryClass.EntriesPresentDateAndTimeSql()));
 		}
-		else {
+		if(shopping.getDateTime()!=null)  {
 			retValue.setDateTimeT(shopping.getDateTimeT());
-			retValue.setDateTime(AuxiliaryClass.ViewsTextualDateTime(shopping.getDateTimeT()));
+			retValue.setDateTime(shopping.getDateTime());       // AuxiliaryClass.ViewsTextualDateTime(shopping.getDateTimeT())
 		}
 		
 		retValue.setUserId(shopping.getUser().getId());

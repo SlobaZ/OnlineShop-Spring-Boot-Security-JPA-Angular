@@ -43,11 +43,11 @@ public class ShoppingDTOToShopping implements Converter<ShoppingDTO, Shopping>{
 			shopping.setId(shoppingDTO.getId());
 			shopping.setCode(shoppingDTO.getCode());
 			shopping.setTotalPrice(0.0);
-			if(shoppingDTO.getDateTimeT()==null) {
+			if(shoppingDTO.getDateTime()==null) {
 				shopping.setDateTimeT(AuxiliaryClass.EntriesPresentDateAndTimeSql());
 				shopping.setDateTime(AuxiliaryClass.ViewsTextualDateTime(AuxiliaryClass.EntriesPresentDateAndTimeSql()));
 			}
-			if(shoppingDTO.getDateTimeT()!=null) {
+			if(shoppingDTO.getDateTime()!=null) {
 				shopping.setDateTimeT(AuxiliaryClass.ConvertStringToSqlDateAndTime(shoppingDTO.getDateTime()));
 				shopping.setDateTime(shoppingDTO.getDateTime());
 			}

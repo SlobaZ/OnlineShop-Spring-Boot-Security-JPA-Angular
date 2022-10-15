@@ -122,7 +122,7 @@ public class ApiShoppingController {
 		persisted.setCode(shoppingDTO.getCode());
 		persisted.setTotalPrice(shoppingDTO.getTotalPrice());
 		persisted.setDateTime(shoppingDTO.getDateTime());
-		
+		persisted.setDateTimeT(AuxiliaryClass.ConvertStringToSqlDateAndTime(shoppingDTO.getDateTime()));
 		User user = userService.getById(shoppingDTO.getUserId());
 		persisted.setUser(user);
 		
