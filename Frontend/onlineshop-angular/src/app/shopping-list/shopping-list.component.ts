@@ -77,5 +77,10 @@ export class ShoppingListComponent implements OnInit {
     });
   }
 
+ selectShopping(id: number){
+    this.router.navigate(['selected-shopping',id]);
+  }
+  
+
 
 }
