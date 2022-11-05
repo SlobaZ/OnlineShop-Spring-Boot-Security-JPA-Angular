@@ -1,28 +1,40 @@
 
-<div class="col-md-4 offset-md-3">
+<div class="col-md-12 offset-md-0">
     <p class="searchP"> Search shoppings </p>
-     <div class="form-group">
-    <label> User: </label>
-    <select [(ngModel)]="userId" >
-      <option [defaultSelected]=true [value]="default" >---------------------------</option>
-	  <option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
-	</select>
-	 </div>
-    <div class="form-group">
-       <label> Code: </label>
+    <div class="row">
+		<div class="col-2">
+     	<div class="form-group">
+    		<label> User: </label>
+    		<select [(ngModel)]="userId" class="form-control">
+      			<option [defaultSelected]=true [value]="default" >--- Search by user ---</option>
+	  			<option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
+			</select>
+	 	</div>
+	 	</div>
+	 	<div class="col-2">
+    	<div class="form-group">
+       		<label> Code: </label>
             <input  type="text" class="form-control" placeholder="Search by code" [(ngModel)]="code" />
-    </div>
-    <div class="form-group">
-       <label> Total price: </label>
+    	</div>
+    	</div>
+    	<div class="col-2">
+    	<div class="form-group">
+       		<label> Total price: </label>
             <input  type="text" class="form-control" placeholder="Search by total price" [(ngModel)]="totalPrice" />
-    </div>
-     <div class="form-group">
-       <label> Date and time beginning: </label>
-            <input  type="text" class="form-control" placeholder="Date and time beginning - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeBeginning" />
-    </div>
-     <div class="form-group">
-       <label> Date and time end: </label>
-            <input  type="text" class="form-control" placeholder="Date and time end - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeEnd" />
+    	</div>
+    	</div>
+    	<div class="col-3">
+     	<div class="form-group">
+       		<label> Date and time beginning: </label>
+            <input  type="text" class="form-control" placeholder="Beginning - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeBeginning" />
+    	</div>
+    	</div>
+    	<div class="col-3">
+     	<div class="form-group">
+       		<label> Date and time end: </label>
+            <input  type="text" class="form-control" placeholder="End - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeEnd" />
+    	</div>
+    	</div>
     </div>
     <button class="btn btn-search" type="button" (click)="searchShoppings()" > <i class='fas fa-search'></i> Search </button>
 </div>
