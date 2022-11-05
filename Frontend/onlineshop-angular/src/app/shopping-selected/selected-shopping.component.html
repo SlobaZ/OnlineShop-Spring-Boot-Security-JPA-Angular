@@ -1,0 +1,30 @@
+<div class="col-md-8 offset-md-2">
+<br>
+    <p class="resultP"><strong> Result of shopping:</strong> </p>
+  	<p class="resultP"><strong>Date and time: </strong> {{shopping.dateTime}}</p>	
+  	<p class="resultP"><strong>User: </strong> {{shopping.userUsername}}</p>	
+  	<p class="resultP"><strong>Shopping code: </strong> {{shopping.code}}</p>	
+  	<p class="resultP"><strong>Items: </strong></p>	
+  	<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Product</th>
+			<th>Product price</th>
+			<th>Item quantity</th>
+			<th>Item price</th>
+		</tr>
+	</thead>
+	<tbody>
+  		<tr *ngFor="let item of items">
+			<td *ngIf="item.itemQuantity">{{ item.id }}</td>
+			<td *ngIf="item.itemQuantity">{{ item.productName }}</td>
+			<td *ngIf="item.itemQuantity">{{ item.productPrice }}</td>
+			<td *ngIf="item.itemQuantity">{{ item.itemQuantity }}</td>
+			<td *ngIf="item.itemQuantity">{{ item.itemPrice }}</td>
+		</tr>
+	</tbody>
+	</table>
+  	<p class="resultP"><strong>Shopping total price: </strong> {{shopping.totalPrice}}</p>	
+  	<br>
+  </div> 
