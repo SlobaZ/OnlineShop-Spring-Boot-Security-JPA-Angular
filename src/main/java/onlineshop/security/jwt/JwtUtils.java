@@ -16,10 +16,10 @@ public class JwtUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 	
-	@Value("${slobs.app.jwtSecret}")
+	@Value("${slobex.app.jwtSecret}")
 	private String jwtSecret;
 
-	@Value("${slobs.app.jwtExpirationMs}")
+	@Value("${slobex.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
 	
 	public String generateJwtToken(Authentication authentication) {
