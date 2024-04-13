@@ -1,4 +1,4 @@
-OnlineShop-Spring-Boot-Security-JPA-React
+OnlineShop-Spring-Boot-Security-JPA-Angular
 
 Spring Boot 3.2.0 RELEASE
 
