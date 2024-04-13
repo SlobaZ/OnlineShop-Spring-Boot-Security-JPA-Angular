@@ -11,17 +11,20 @@ import onlineshop.models.Category;
 import onlineshop.models.Product;
 import onlineshop.repository.ProductRepository;
 import onlineshop.service.ProductService;
+import onlineshop.utils.AssignCategory;
 
 
 @Service 
 public class JpaProductService implements ProductService{
-	
+		
 	@Autowired
 	private ProductRepository productRepository;
+	
+	AssignCategory ac = new AssignCategory();
 
 	@Override
-	public Product getById(Integer id) {
-		return productRepository.getById(id);
+	public Product getReferenceById(Integer id) {
+		return productRepository.getReferenceById(id);
 	}
 
 	@Override
@@ -37,6 +40,7 @@ public class JpaProductService implements ProductService{
 
 	@Override
 	public Product save(Product product) {
+		ac.assign(product);
 		return productRepository.save(product);
 	}
 	
@@ -48,7 +52,7 @@ public class JpaProductService implements ProductService{
 
 	@Override
 	public Product delete(Integer id) {
-		Product product = productRepository.getById(id);
+		Product product = productRepository.getReferenceById(id);
 		if(product != null) {
 			productRepository.delete(product);
 		}

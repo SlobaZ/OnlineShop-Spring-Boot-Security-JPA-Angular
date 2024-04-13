@@ -13,9 +13,11 @@ import onlineshop.models.Product;
 
 @Component
 public class ProductToProductDTO implements Converter<Product, ProductDTO> {
+	
 
 	@Override
 	public ProductDTO convert(Product product) {
+		
 		if(product==null){
 			return null;
 		}
@@ -30,13 +32,14 @@ public class ProductToProductDTO implements Converter<Product, ProductDTO> {
 		dto.setPhoto(product.getPhoto());
 		
 		if(product.getCategory()!=null) {
-		dto.setCategory(product.getCategory());
+			dto.setCategory(product.getCategory());
 		}
 		
 		return dto;
 	}
 	
 	public List<ProductDTO> convert(List<Product> products){
+		
 		List<ProductDTO> ret = new ArrayList<>();
 		
 		for(Product p: products){

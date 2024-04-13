@@ -12,8 +12,11 @@
     outline: 10px ridge rgba(255, 255, 255, 0.3);
     outline-offset: -10px;
     transform: translateY(1px);
+    
 }
-
+.col-md-4:focus-within {
+    background: linear-gradient(#F8F8F8 , #F5F5F5 47% 53% , #F8F8F8 );
+}
 .col-md-4 img {
     width:60%;
     margin-left:20%;
@@ -60,7 +63,10 @@ p {
         border-radius: 5px;
     }
     p {
-        font-size: 3.9vw;
+        font-size: 4.3vw;
+    }
+    input, select, label {
+        font-size: 4.5vw;
     }
 
 }

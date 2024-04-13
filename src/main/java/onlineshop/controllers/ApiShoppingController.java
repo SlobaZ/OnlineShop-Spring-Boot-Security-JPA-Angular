@@ -3,10 +3,8 @@ package onlineshop.controllers;
 
 import java.util.List;
 
-
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -26,20 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import onlineshop.models.Shopping;
-import onlineshop.models.Product;
-import onlineshop.models.Item;
-import onlineshop.models.User;
 import onlineshop.service.ShoppingService;
-import onlineshop.service.ProductService;
-import onlineshop.service.ItemService;
-import onlineshop.service.UserService;
+import onlineshop.support.ShoppingDTOToShopping;
 import onlineshop.support.ShoppingToShoppingDTO;
-import onlineshop.utils.AuxiliaryClass;
 import onlineshop.dto.ShoppingDTO;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping(value="/shoppings")
+@RequestMapping(value="/api/shoppings")
 public class ApiShoppingController {
 	
 	@Autowired
@@ -47,16 +39,10 @@ public class ApiShoppingController {
 	
 	@Autowired
 	private ShoppingToShoppingDTO toDTO;
-	 		
-	@Autowired
-	private ProductService productService;
 	
 	@Autowired
-	private ItemService itemService;
-	
-	@Autowired
-	private UserService userService;
-
+	private ShoppingDTOToShopping toShopping;
+	 	
 		
 
 	@GetMapping()
@@ -89,9 +75,9 @@ public class ApiShoppingController {
 	
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	ResponseEntity<ShoppingDTO> getShoppingById(@PathVariable Integer id){
-		Shopping shopping = shoppingService.getById(id);
+		Shopping shopping = shoppingService.getReferenceById(id);
 		if(shopping==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -118,17 +104,18 @@ public class ApiShoppingController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<ShoppingDTO> editShopping(@PathVariable Integer id , @Valid @RequestBody ShoppingDTO shoppingDTO ){
 		
-		Shopping persisted = shoppingService.getById(id);
-		persisted.setCode(shoppingDTO.getCode());
-		persisted.setTotalPrice(shoppingDTO.getTotalPrice());
-		persisted.setDateTime(shoppingDTO.getDateTime());
-		persisted.setDateTimeT(AuxiliaryClass.ConvertStringToSqlDateAndTime(shoppingDTO.getDateTime()));
-		User user = userService.getById(shoppingDTO.getUserId());
-		persisted.setUser(user);
+		try {
+			if(shoppingDTO==null || id==null){
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
+			shoppingDTO.setId(id);
+			Shopping persisted = shoppingService.save(toShopping.convert(shoppingDTO));
+			return new ResponseEntity<>(toDTO.convert(persisted),HttpStatus.OK);
+		}
+		catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
 		
-		shoppingService.save(persisted);
-		
-		return new ResponseEntity<>(toDTO.convert(persisted), HttpStatus.OK);
 	}
 	
 	
@@ -141,39 +128,25 @@ public class ApiShoppingController {
 
 	
 	@PostMapping()
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<ShoppingDTO> createShopping(){ 
-				
-		User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = String.valueOf ( userDetails.getUsername() );
-		User user = userService.findbyUsername(username);
-
-		Shopping shopping = new Shopping();
-		shopping.setCode(AuxiliaryClass.AssignCode());
-		shopping.setDateTimeT(AuxiliaryClass.EntriesPresentDateAndTimeSql());
-		shopping.setDateTime(AuxiliaryClass.ViewsTextualDateTime(AuxiliaryClass.EntriesPresentDateAndTimeSql()));
-		shopping.setTotalPrice(0.0);
-		shopping.setUser(user);
-		shoppingService.save(shopping);
-		
-		List<Product> products = productService.findAll();
-		for(Product product:products) {
-			Item item = new Item();
-			item.setItemQuantity(0);
-			item.setItemPrice(0.0);
-			item.setProduct(product);
-			itemService.save(item);
-			shopping.addItem(item);
+		try {	
+				Shopping shopping  = shoppingService.createShopping();
+				if(shopping==null) {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+				return new ResponseEntity<>( toDTO.convert(shopping), HttpStatus.OK);
 		}
-		shoppingService.save(shopping);
-		return new ResponseEntity<>( toDTO.convert(shopping), HttpStatus.CREATED); 
+		catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	
 	
 	
 	@PostMapping(value="/{id}/buy")
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")  
 	public ResponseEntity<ShoppingDTO> buy( @PathVariable Integer id) {
 		
 		Shopping shopping = shoppingService.buy(id);

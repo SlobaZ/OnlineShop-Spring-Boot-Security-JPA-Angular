@@ -1,14 +1,26 @@
 package onlineshop.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import onlineshop.models.Category;
 
 public class ProductDTO {
 	
 	private Integer id;
+	
+	@NotEmpty(message = "Please provide a name")
 	private String name;
+	
+	@NotEmpty(message = "Please provide a brand")
 	private String brand;
+	
+	@PositiveOrZero(message = "Only positive number")
 	private Integer quantity;
+	
+	@Positive(message = "Only positive number")
 	private Double price;
+	
 	private String photo;
 	
 	private Category category;

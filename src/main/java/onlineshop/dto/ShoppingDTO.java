@@ -10,7 +10,7 @@ public class ShoppingDTO {
 	private Timestamp dateTimeT;
 	private String dateTime;
 	
-	private Long userId;
+	private Integer userId;
 	private String userUsername;
 	
 	
@@ -46,10 +46,10 @@ public class ShoppingDTO {
 	}
 	
 	
-	public Long getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 	public String getUserUsername() {

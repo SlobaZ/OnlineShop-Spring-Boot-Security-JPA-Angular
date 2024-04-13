@@ -8,42 +8,44 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
 @Entity
-@Table(	name = "user",  uniqueConstraints = {  @UniqueConstraint(columnNames = "username"), @UniqueConstraint(columnNames = "email")  })
+@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames = "username"), @UniqueConstraint(columnNames = "email") })
 public class User implements UserDetails{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
-	@NotBlank
-	@Size(max = 20)
+	@NotEmpty(message = "Please provide a username")
+	@Size(min=5, max=100, message = "Username must be between 5 and 100 character")
 	private String username;
 
-	@NotBlank
-	@Size(max = 50)
+	@NotBlank(message = "Please provide a e-mail")
+	@Size(max=100)
 	@Email
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
+	@NotEmpty(message = "Please provide a password")
+	@Size(min=6, max=100, message = "Password must be between 6 and 100 character")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),  inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(	name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -51,8 +53,8 @@ public class User implements UserDetails{
 	
 	@Transient
 	private Collection<? extends GrantedAuthority> authorities;
-
-	public User(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	
+	public User(Integer id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -64,15 +66,15 @@ public class User implements UserDetails{
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
-		return new User( user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
+
+		return new User(user.getId(),user.getUsername(),user.getEmail(),user.getPassword(),authorities);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
-	
+
 	public User() {
 	}
 
@@ -83,6 +85,8 @@ public class User implements UserDetails{
 	}
 	
 	
+
+
 	public User(String username,String email, String password, Set<Role> roles, List<Shopping> shoppings) {
 		this.username = username;
 		this.email = email;
@@ -92,14 +96,15 @@ public class User implements UserDetails{
 	}
 	
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -116,6 +121,7 @@ public class User implements UserDetails{
 		this.email = email;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -140,10 +146,10 @@ public class User implements UserDetails{
 	
 	
 	
-	public List<Shopping> getShoppings() {
+	public List<Shopping> getShopping() {
 		return shoppings;
 	}
-	public void setShoppings(List<Shopping> shoppings) {
+	public void setShopping(List<Shopping> shoppings) {
 		this.shoppings = shoppings;
 	}
 	
@@ -153,6 +159,7 @@ public class User implements UserDetails{
 		}
 		shoppings.add(shopping);
 	}
+	
 	
 	
 	@Override
@@ -186,5 +193,7 @@ public class User implements UserDetails{
 	}
 
 
+	
+	
 	
 }

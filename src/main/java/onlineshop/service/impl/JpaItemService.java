@@ -23,8 +23,8 @@ public class JpaItemService implements ItemService {
 	private ProductRepository productRepository;
 
 	@Override
-	public Item getById(Integer id) {
-		return itemRepository.getById(id);
+	public Item getReferenceById(Integer id) {
+		return itemRepository.getReferenceById(id);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class JpaItemService implements ItemService {
 
 	@Override
 	public Item delete(Integer id) {
-		Item item = itemRepository.getById(id);
+		Item item = itemRepository.getReferenceById(id);
 		if(item != null) {
 			itemRepository.delete(item);
 		}
@@ -61,7 +61,8 @@ public class JpaItemService implements ItemService {
 
 	@Override
 	public Item buyItem(Integer id, int quantityItem) {
-		Item item = itemRepository.getById(id);
+		
+		Item item = itemRepository.getReferenceById(id);
 		Product product = item.getProduct();
 
 		if( product.getQuantity()- quantityItem >= 0   &&  product.getQuantity() >= quantityItem  &&  quantityItem > 0 ) {
@@ -69,13 +70,14 @@ public class JpaItemService implements ItemService {
 			product.setQuantity( product.getQuantity() - quantityItem ); 
 			item.setItemQuantity(item.getItemQuantity() + quantityItem);
 			item.setItemPrice(item.getItemPrice() + (product.getPrice()*quantityItem) );
+			
+			productRepository.save(product);
+			itemRepository.save(item);
 
-			}
+		}
 		else {
 			return null;
 		}
-		productRepository.save(product);
-		itemRepository.save(item);
 		
 		return item;
 	}
@@ -84,7 +86,7 @@ public class JpaItemService implements ItemService {
 
 	@Override
 	public Item resetItem(Integer id) {
-		Item item = itemRepository.getById(id);
+		Item item = itemRepository.getReferenceById(id);
 		Product product = item.getProduct();
 		product.setQuantity( product.getQuantity() + item.getItemQuantity() ); 
 		item.setItemPrice(0.0);

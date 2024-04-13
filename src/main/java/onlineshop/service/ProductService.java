@@ -11,7 +11,7 @@ import onlineshop.models.Product;
 
 public interface ProductService {
 
-	Product getById(Integer id);
+	Product getReferenceById(Integer id);
 	List<Product> findAll();
 	Page<Product> findAll(int pageNum);
 	Product save(Product product);

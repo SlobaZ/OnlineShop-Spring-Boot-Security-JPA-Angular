@@ -13,7 +13,7 @@ import onlineshop.models.Shopping;
 import onlineshop.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	Optional<User> findByUsername(String username);
 	

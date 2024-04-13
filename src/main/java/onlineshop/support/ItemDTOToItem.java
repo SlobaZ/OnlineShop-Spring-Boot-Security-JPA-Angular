@@ -31,15 +31,15 @@ public class ItemDTOToItem implements Converter<ItemDTO, Item> {
 	@Override
 	public Item convert(ItemDTO dto) {
 		
-		Shopping shopping = shoppingService.getById(dto.getShoppingId());
-		Product product = productService.getById(dto.getProductId());
+		Shopping shopping = shoppingService.getReferenceById(dto.getShoppingId());
+		Product product = productService.getReferenceById(dto.getProductId());
 		
 		if(shopping!=null && product!=null) {
 			
 			Item item = null;
 			
 			if(dto.getId() != null) {
-				item = itemService.getById(dto.getId());
+				item = itemService.getReferenceById(dto.getId());
 			}
 			else {
 				item = new Item();

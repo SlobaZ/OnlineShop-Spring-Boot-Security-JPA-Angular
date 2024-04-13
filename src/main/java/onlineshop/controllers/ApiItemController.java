@@ -27,7 +27,7 @@ import onlineshop.dto.ItemDTO;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping(value="/shoppings/{shoppingId}/items")
+@RequestMapping(value="/api/shoppings/{shoppingId}/items")
 public class ApiItemController {
 	
 	@Autowired
@@ -42,7 +42,7 @@ public class ApiItemController {
 	
 	
 	@GetMapping()
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	ResponseEntity<List<ItemDTO>> getAllsByShoppingId(@PathVariable Integer shoppingId) {
 		List<Item> items = itemService.findByIdShopping(shoppingId);
 	return new ResponseEntity<>( toDTO.convert(items) , HttpStatus.OK);
@@ -52,10 +52,11 @@ public class ApiItemController {
 	
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")  
 	ResponseEntity<ItemDTO> getItemById(@PathVariable Integer id){
-		Item item = itemService.getById(id);
+		Item item = itemService.getReferenceById(id);
 		if(item==null){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		
 		return new ResponseEntity<>( toDTO.convert(item), HttpStatus.OK);
@@ -64,11 +65,12 @@ public class ApiItemController {
 	
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")  
 	ResponseEntity<ItemDTO> deleteItem(@PathVariable Integer id){
 		Item deleted = itemService.delete(id);
 		
 		if(deleted == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		
 		return new ResponseEntity<>( toDTO.convert(deleted), HttpStatus.OK);
@@ -76,9 +78,10 @@ public class ApiItemController {
 	
 	
 	@PostMapping(consumes = "application/json")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<ItemDTO> addItem( @Validated @RequestBody ItemDTO newItemDTO){
 		if(newItemDTO==null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 
 		Item savedItem = itemService.save(toItem.convert(newItemDTO));
@@ -95,22 +98,24 @@ public class ApiItemController {
 	
 
 	@PostMapping(value="/{id}/{itemQuantity}/buyItem")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<ItemDTO> buyItem(@PathVariable Integer id, @PathVariable int itemQuantity){
 
 		Item item = itemService.buyItem(id,itemQuantity);
 		if(item==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>( toDTO.convert(item), HttpStatus.CREATED);
 	}
 	
 	
 	@PostMapping(value="/{id}/resetItem")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<ItemDTO> resetItem(@PathVariable Integer id){
 
 		Item item = itemService.resetItem(id);
 		if(item==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>( toDTO.convert(item), HttpStatus.CREATED);
 	}

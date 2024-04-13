@@ -3,20 +3,20 @@ package onlineshop.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name="product")
@@ -26,18 +26,23 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	private Integer id;
+	
 	@Column(nullable=false)
-	@NotEmpty(message = "*Please provide a name")
+	@NotEmpty(message = "Please provide a name")
 	private String name;
+	
 	@Column(nullable=false)
-	@NotEmpty(message = "*Please provide a brand")
+	@NotEmpty(message = "Please provide a brand")
 	private String brand;
+	
 	@Column(nullable=false)
-	@PositiveOrZero(message = "*Only positive number")
+	@PositiveOrZero(message = "Only positive number")
 	private Integer quantity;
+	
 	@Column(nullable=false)
-	@Positive(message = "*Only positive number")
+	@Positive(message = "Only positive number")
 	private Double price;
+	
 	@Column
 	private String photo;
 	

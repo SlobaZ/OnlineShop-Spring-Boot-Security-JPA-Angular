@@ -23,20 +23,18 @@ public class ProductDTOToProduct implements Converter<ProductDTO, Product> {
 
 	@Override
 	public Product convert(ProductDTO dto) {
-		Product product = null;
 		
+		Product product = new Product();
+				
 		if(dto.getId()!=null){
-			product = productService.getById(dto.getId());
+			
+			product = productService.getReferenceById(dto.getId());
 			
 			if(product == null){
-				throw new IllegalStateException("Tried to "
-						+ "modify a non-existant Product");
+				throw new IllegalStateException("Tried to modify a non-existant Product");
 			}
 		}
-		else {
-			product = new Product();
-		}
-		
+
 		product.setId(dto.getId());
 		product.setName(dto.getName());
 		product.setBrand(dto.getBrand());
@@ -47,6 +45,7 @@ public class ProductDTOToProduct implements Converter<ProductDTO, Product> {
 		if(dto.getCategory()!=null) {
 			product.setCategory(dto.getCategory());
 		}
+		
 		return product;
 	}
 	

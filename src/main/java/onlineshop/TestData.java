@@ -1,8 +1,9 @@
 package onlineshop;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import onlineshop.models.Role;
@@ -39,6 +40,8 @@ public class TestData {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	PasswordEncoder encoder;
 	
 
 	
@@ -55,25 +58,27 @@ public class TestData {
 		role2.setName(ERole.ROLE_USER);
 		role2 = roleRepository.save(role2);
 		
+		
 		User user1 = new User();
 		user1.setUsername("Admin");
 		user1.setEmail("admin@gmail.com");
-		user1.setPassword("$2a$10$rEMzVllGDznHFZbUhJH0n.fRIR33o3QXysUTFKzsbKwF5V28GK0XC");    // administrator
+		user1.setPassword(encoder.encode("administrator"));
 		user1 = userService.save(user1);
 		
 		User user2 = new User();
 		user2.setUsername("PeraPeric");
 		user2.setEmail("pera@gmail.com");
-		user2.setPassword("$2a$10$Locf9fRBO84ejEc/bQFEROChVsd2ixjv4M2kYX6KSLp74iacK.N3W");    // 123456
+		user2.setPassword(encoder.encode("123456"));
 		user2 = userService.save(user2);
 		
+
 		User user3 = new User();
 		user3.setUsername("VasaVasic");
 		user3.setEmail("vasa@gmail.com");
-		user3.setPassword("$2a$10$bwQVsArIQJtmkPckmfRZGOEMAGBXcHaziXIEgstc9ePsPG6sYEFK.");    // 654321
+		user3.setPassword(encoder.encode("654321"));
 		user3 = userService.save(user3);
 		
-		
+	
 		user1.addRole(role1);
 		user1.addRole(role2);
 		user2.addRole(role2);
@@ -81,7 +86,6 @@ public class TestData {
 		userService.save(user1);
 		userService.save(user2);
 		userService.save(user3);
-		
 		
 		Product product1 = new Product();
 		product1.setName("Television");
@@ -157,16 +161,16 @@ public class TestData {
 		
 		Shopping shopping1 = new Shopping();
 		shopping1.setCode("A 123");
-		shopping1.setDateTimeT(java.sql.Timestamp.valueOf("2019-09-15 10:10:10"));
-		shopping1.setDateTime("15.09.2019. 10:10");
+		shopping1.setDateTimeT(java.sql.Timestamp.valueOf("2024-02-17 10:10:10"));
+		shopping1.setDateTime("17.02.2024. 10:10");
 		shopping1.setTotalPrice(194000.0);
 		shopping1.setUser(user2);
 		shopping1 = shoppingService.save(shopping1);
 		
 		Shopping shopping2 = new Shopping();
 		shopping2.setCode("B 456");
-		shopping2.setDateTimeT(java.sql.Timestamp.valueOf("2020-04-15 08:25:20"));
-		shopping2.setDateTime("15.04.2020. 08:25");
+		shopping2.setDateTimeT(java.sql.Timestamp.valueOf("2024-03-15 08:25:20"));
+		shopping2.setDateTime("15.03.2024. 08:25");
 		shopping2.setTotalPrice(96000.0);
 		shopping2.setUser(user3);
 		shopping2 = shoppingService.save(shopping2);

@@ -8,7 +8,7 @@ import onlineshop.models.Item;
 
 public interface ItemService {
 	
-	Item getById(Integer id);
+	Item getReferenceById(Integer id);
 	List<Item> findAll();
 	Page<Item> findAll(int pageNum);
 	Item save(Item item);

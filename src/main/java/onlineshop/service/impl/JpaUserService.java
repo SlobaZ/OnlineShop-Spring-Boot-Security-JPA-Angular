@@ -19,20 +19,18 @@ public class JpaUserService implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
 	@Override
 	@Transactional
-	public User loadUserByUsername(String username) throws UsernameNotFoundException {
+	public User  loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
 		return User.build(user);
 	}
 
-
 	@Override
-	public User getById(Long id) {
-		return userRepository.getById(id);
+	public User getReferenceById(Integer id) {
+		return userRepository.getReferenceById(id);
 	}
 
 	@Override
@@ -42,7 +40,7 @@ public class JpaUserService implements UserService {
 
 	@Override
 	public Page<User> findAll(int pageNum) {
-		PageRequest pageable = PageRequest.of(pageNum, 20);
+		PageRequest pageable = PageRequest.of(pageNum, 30);
 		return userRepository.findAll(pageable);
 	}
 
@@ -52,8 +50,8 @@ public class JpaUserService implements UserService {
 	}
 
 	@Override
-	public User delete(Long id) {
-		User user = userRepository.getById(id);
+	public User delete(Integer id) {
+		User user = userRepository.getReferenceById(id);
 		if(user != null) {
 			userRepository.delete(user);
 		}
@@ -77,19 +75,17 @@ public class JpaUserService implements UserService {
 		return userRepository.findbyUsername(username);
 	}
 
-
 	@Override
 	public Boolean existsByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
-
 
 	@Override
 	public Boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}
 
-
+	
 
 
 

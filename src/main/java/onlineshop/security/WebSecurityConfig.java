@@ -1,17 +1,18 @@
 package onlineshop.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import onlineshop.security.jwt.AuthEntryPointJwt;
@@ -19,66 +20,61 @@ import onlineshop.security.jwt.AuthTokenFilter;
 import onlineshop.service.UserService;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		// securedEnabled = true,
-		// jsr250Enabled = true,
-		prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+public class WebSecurityConfig { 
 	
-	
-	@Autowired
-	UserService userService;
+  @Autowired
+  UserService userService;
 
-	@Autowired
-	private AuthEntryPointJwt unauthorizedHandler;
-	
+  @Autowired
+  private AuthEntryPointJwt unauthorizedHandler;
 
+  @Bean
+  public AuthTokenFilter authenticationJwtTokenFilter() {
+    return new AuthTokenFilter();
+  }
 
-	@Bean
-	public AuthTokenFilter authenticationJwtTokenFilter() {
-		return new AuthTokenFilter();
-	}
+  
+  @Bean
+  public DaoAuthenticationProvider authenticationProvider() {
+      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+       
+      authProvider.setUserDetailsService(userService);
+      authProvider.setPasswordEncoder(passwordEncoder());
+   
+      return authProvider;
+  }
 
-	
-	@Override
-	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
-	}
+  
+  @Bean
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    return authConfig.getAuthenticationManager();
+  }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
+  
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.csrf(csrf -> csrf.disable())
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> 
+          auth.requestMatchers("/authentication/**").permitAll()
+              .requestMatchers("/api/**").permitAll()
+              .requestMatchers("/resources/**" , "/static/**" , "/images/**" , "/css/**" , "/js/**").permitAll()
+              .requestMatchers("/**").permitAll()
+              .anyRequest().authenticated()
+        );
+    
+    http.authenticationProvider(authenticationProvider());
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests()
-			.antMatchers("/auth/**").permitAll()
-			.antMatchers("/api/**").permitAll()
-			.antMatchers("/resources/**" , "/static/**" , "/images/**" , "/css/**" , "/js/**").permitAll()
-			.antMatchers("/**").permitAll()
-			.anyRequest().authenticated()
-			 	.and()
-	            .formLogin()
-	                .permitAll()
-	                .and()
-	            .logout()
-	                .permitAll()
-	                .and()
-	             .exceptionHandling()
-	             	;
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
+    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    
+    return http.build();
+  }
 }
+

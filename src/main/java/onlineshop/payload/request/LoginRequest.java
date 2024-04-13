@@ -1,13 +1,13 @@
 package onlineshop.payload.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
 	
-	@NotBlank
+	@NotBlank(message = "Please provide a username")
 	private String username;
 
-	@NotBlank
+	@NotBlank(message = "Please provide a password")
 	private String password;
 
 	public String getUsername() {

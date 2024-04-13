@@ -15,7 +15,7 @@ import onlineshop.models.Shopping;
 @Repository
 public interface ShoppingRepository extends JpaRepository<Shopping, Integer>{
 
-//	Page<Shopping> findByUserId(Long userId, Pageable page);
+//	Page<Kupovina> findByUserId(Long userId, Pageable page);
 	
 	@Query("SELECT s FROM Shopping s WHERE "
 			+ "(:userId IS NULL or s.user.id = :userId ) AND "

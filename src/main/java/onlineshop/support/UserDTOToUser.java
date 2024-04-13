@@ -25,17 +25,16 @@ public class UserDTOToUser implements Converter<UserDTO, User> {
 
 	@Override
 	public User convert(UserDTO dto) {
-		User user = null;
+		
+		User user = new User();
 		
 		if(dto.getId()!=null){
-			user = userService.getById(dto.getId());
+			
+			user = userService.getReferenceById(dto.getId());
 			
 			if(user == null){
 				throw new IllegalStateException("Tried to modify a non-existant User");
 			}
-		}
-		else {
-			user = new User();
 		}
 		
 		user.setId(dto.getId());

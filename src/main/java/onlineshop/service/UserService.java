@@ -12,11 +12,11 @@ import onlineshop.models.User;
 
 public interface UserService extends UserDetailsService{
 	
-	User getById(Long id);
+	User getReferenceById(Integer id);
 	List<User> findAll();
 	Page<User> findAll(int pageNum);
 	User save(User user);
-	User delete(Long id);
+	User delete(Integer id);
 	
 	Page<User> search(
 			@Param("username") String username, 

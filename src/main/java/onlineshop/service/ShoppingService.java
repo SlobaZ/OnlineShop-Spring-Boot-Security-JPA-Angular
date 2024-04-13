@@ -11,7 +11,7 @@ import onlineshop.models.Shopping;
 
 public interface ShoppingService {
 	
-	Shopping getById(Integer id);
+	Shopping getReferenceById(Integer id);
 	List<Shopping> findAll();
 	Page<Shopping> findAll(int pageNum);
 	Shopping save(Shopping shopping);
@@ -26,6 +26,7 @@ public interface ShoppingService {
 			 int pageNum);
 
 	
+	Shopping createShopping();
 	Shopping buy(Integer id);
 
 

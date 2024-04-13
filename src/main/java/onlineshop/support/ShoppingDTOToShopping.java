@@ -1,6 +1,7 @@
 package onlineshop.support;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,12 @@ public class ShoppingDTOToShopping implements Converter<ShoppingDTO, Shopping>{
 	@Override
 	public Shopping convert(ShoppingDTO shoppingDTO) {
 		
-		User user = userService.getById(shoppingDTO.getUserId());
+		User user = userService.getReferenceById(shoppingDTO.getUserId());
 		if(user!=null) {
 		Shopping shopping = null;
 		
 		if(shoppingDTO.getId() != null){
-			shopping = shoppingService.getById(shoppingDTO.getId());
+			shopping = shoppingService.getReferenceById(shoppingDTO.getId());
 
 		}
 		else {
@@ -42,14 +43,14 @@ public class ShoppingDTOToShopping implements Converter<ShoppingDTO, Shopping>{
 					
 			shopping.setId(shoppingDTO.getId());
 			shopping.setCode(shoppingDTO.getCode());
-			shopping.setTotalPrice(0.0);
+			shopping.setTotalPrice(shoppingDTO.getTotalPrice());
 			if(shoppingDTO.getDateTime()==null) {
+				shopping.setDateTime(AuxiliaryClass.ConvertSqlDateAndTimeToString(AuxiliaryClass.EntriesPresentDateAndTimeSql()));
 				shopping.setDateTimeT(AuxiliaryClass.EntriesPresentDateAndTimeSql());
-				shopping.setDateTime(AuxiliaryClass.ViewsTextualDateTime(AuxiliaryClass.EntriesPresentDateAndTimeSql()));
 			}
 			if(shoppingDTO.getDateTime()!=null) {
-				shopping.setDateTimeT(AuxiliaryClass.ConvertStringToSqlDateAndTime(shoppingDTO.getDateTime()));
 				shopping.setDateTime(shoppingDTO.getDateTime());
+				shopping.setDateTimeT(AuxiliaryClass.ConvertStringToSqlDateAndTime(shoppingDTO.getDateTime()));
 			}
 			shopping.setUser(user);
 			return shopping;
