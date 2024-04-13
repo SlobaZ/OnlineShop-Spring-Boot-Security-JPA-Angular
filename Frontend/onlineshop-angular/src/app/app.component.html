@@ -1,43 +1,115 @@
 <div id="app">
-  <nav class="navbar navbar-expand-sm">
+	
+	<nav class="navbar navbar-expand-lg fixed-top navbar-dark ">  <!--bg-secondary-->
+  <div class="container-fluid">
+	      <div class="logo ms-1">
+        	<img src="assets/images/logo.jpg"  alt="logo" />
+        </div>
+		    <a class="navbar-brand ms-5" href="#"> <i class="fa fa-home"></i> OnlineShop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		
+      <ul class="navbar-nav ms-md-5">   
+        <li class="nav-item ms-md-5">
+		      <a href="/products" class="nav-link" routerLink="products"> <i class="fa fa-laptop"></i> Products </a>
+        </li>
+        <li class="nav-item ms-md-5">
+          <a href="/create-shopping" class="nav-link" routerLink="create-shopping"> <i class="fa fa-shopping-basket"></i> Buy</a>
+        </li>
+        <li class="nav-item ms-md-5" *ngIf="showAdmin">
+          <a href="/users" class="nav-link" routerLink="users"> <i class='fas fa-users'></i> Users</a>
+        </li>
+        <li class="nav-item ms-md-5" *ngIf="showAdmin">
+          <a href="/shoppings" class="nav-link" routerLink="shoppings"><i class="fa fa-cart-arrow-down"></i> Shoppings</a>
+        </li>
+      </ul>
+      
+      <ul class="navbar-nav ms-md-auto me-md-4" *ngIf="!isLoggedIn">
+      <li class="nav-item me-md-4">
+        <a href="/register" class="nav-link" routerLink="register"> <i class="fa fa-edit"></i> Sign Up</a>
+      </li>
+      <li class="nav-item me-md-1">
+        <a href="/login" class="nav-link" routerLink="login"> <i class="fas fa-sign-in-alt"></i> Login</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-md-auto me-md-4" *ngIf="isLoggedIn">
+      <li class="nav-item me-md-4">
+        <a href="/profile" class="nav-link" routerLink="profile"> <i class='fas fa-user-alt'></i> {{ username }}</a>
+      </li>
+      <li class="nav-item me-md-1">
+        <a href class="nav-link" (click)="logout()"><i class="fas fa-sign-out-alt"></i> LogOut</a>
+      </li>
+    </ul>
+
+    </div>
+  </div>
+</nav>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ <!-- <nav class="navbar navbar-expand-sm">
+		 
   		<div class="logo">
         	<img src="assets/images/logo.jpg"  alt="logo" />
         </div>
-    <a href="#" class="navbar-brand"> OnlineShop</a>
+    <a href="#" class="navbar-brand"> <i class="fa fa-home"></i> OnlineShop</a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    
+     <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    
     <ul class="navbar-nav mr-auto ml-4" routerLinkActive="active">
       <li class="nav-item ml-2">
-        <a href="/products" class="nav-link" routerLink="products">Products </a>
+        <a href="/products" class="nav-link" routerLink="products"><i class="fa fa-laptop"></i> Products </a>
       </li>
        <li class="nav-item ml-2">
-        <a href="/create-shopping" class="nav-link" routerLink="create-shopping">Buy</a>
+        <a href="/create-shopping" class="nav-link" routerLink="create-shopping"><i class="fa fa-shopping-basket"></i> Buy</a>
       </li>
       <li class="nav-item ml-2" *ngIf="showAdmin">
-        <a href="/users" class="nav-link" routerLink="users">Users</a>
+        <a href="/users" class="nav-link" routerLink="users"> <i class='fas fa-users'></i> Users</a>
       </li>
       <li class="nav-item ml-2" *ngIf="showAdmin">
-        <a href="/shoppings" class="nav-link" routerLink="shoppings">Shoppings</a>
+        <a href="/shoppings" class="nav-link" routerLink="shoppings"><i class="fa fa-cart-arrow-down"></i> Shoppings</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto mr-4" *ngIf="!isLoggedIn">
       <li class="nav-item mr-4">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        <a href="/register" class="nav-link" routerLink="register"><i class="fa fa-edit"></i> Sign Up</a>
       </li>
       <li class="nav-item mr-1">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a href="/login" class="nav-link" routerLink="login"> <i class="fas fa-sign-in-alt"></i> Login</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto mr-4" *ngIf="isLoggedIn">
       <li class="nav-item mr-4">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        <a href="/profile" class="nav-link" routerLink="profile"> <i class='fas fa-user-alt'></i> {{ username }}</a>
       </li>
       <li class="nav-item mr-1">
-        <a href class="nav-link" (click)="logout()">LogOut</a>
+        <a href class="nav-link" (click)="logout()"><i class="fas fa-sign-out-alt"></i> LogOut</a>
       </li>
     </ul>
-  </nav>
+    
+    </div>
 
+  </nav>
+-->
   <div class="container-fluid">
   		<div id="screensize">
     		<router-outlet></router-outlet>

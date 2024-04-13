@@ -1,0 +1,169 @@
+:root {
+    --boxshadowButton: 3px 4px #ccc;
+    --boxshadowButtonLight: 3px 4px #ccc;
+    --boxshadowButtonDark: 3px 4px #303030;
+  }
+
+
+.btn {
+    letter-spacing: 1px;
+    font-weight:bold;
+    border: 1px solid black;  
+}
+
+.btn-search{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(lightgray , #505050 45% 55% , lightgray );
+	padding: 4px 4px;
+    font-size: 3vw;
+}
+.btn-search:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(gray , white 45% 55% , gray);
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-add{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#00CC99 , #006699 45% 55% , #00CC99 );
+	padding: 4px 4px;
+    font-size: 3vw;
+}
+.btn-add:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#00CC99 , white 45% 55% , #00CC99 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-select{
+	color: white; 
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#66FF00 , #003300 45% 55% , #66FF00 );
+	padding: 4px 4px;
+    font-size: 3vw;
+}
+.btn-select:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#009900 , white 45% 55%, #009900 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-update{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+	padding: 5px 4px;
+    font-size: 3vw;
+}
+.btn-update:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#006699 , white 45% 55% , #006699 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-delete{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#FF3300 , #990033 45% 55% , #FF3300 );
+	padding: 5px 4px;
+    font-size: 3vw;
+}
+.btn-delete:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#FF0033 , white 45% 55% , #FF0033 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-submit{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+	padding: 4px 4px;
+    font-size: 3.3vw;
+}
+.btn-submit:hover{
+	color: black; 
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#006699 , white 45% 55% , #006699 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-cancel{
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#FF3300 , #990033 45% 55% , #FF3300 );
+	padding: 4px 4px;
+    font-size: 3.3vw;
+	margin-left: 15px;
+}
+.btn-cancel:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#FF0033 , white 45% 55% , #FF0033 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+.btn-mode{
+	color: white; 
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#66FF00 , #003300 45% 55% , #66FF00 );
+	padding: 3px 4px;
+    font-size: 3vw;
+	margin-right: 15px;
+}
+.btn-mode:hover{
+	color: black;
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#009900 , white 45% 55%, #009900 );
+	border: 1px solid black;
+	transform: translateY(2px);
+}
+.btn-pagination {
+	color: white;
+	text-shadow: 1.5px 1px 1px black;
+	background: linear-gradient(#33CCFF , #006699 45% 55% , #33CCFF );
+	padding: 4px 4px;
+	font-size: 3vw;
+	width: 100px;
+}
+.btn-pagination:hover{
+	color: black; 
+	text-shadow: 1.5px 1px 1px white;
+	background: linear-gradient(#006699 , white 45% 55% , #006699 );
+	border: 1px solid black;
+	box-shadow: var(--boxshadowButton);
+	transform: translateY(2px);
+}
+
+
+
+/*  DESKTOP  */
+@media screen and (min-width: 767px) {
+	.btn {
+		padding: 4px 6px;
+		font-size: 0.9vw;
+		letter-spacing: 1px;
+	}
+	.btn-mode{
+		padding: 2px 2px;
+	}
+	.btn-pagination {
+		width: 150px;
+	}
+}
+
+

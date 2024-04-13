@@ -10,13 +10,11 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { ProductListComponent } from './product-list/product-list.component';
-import { CreateProductComponent } from './product-create/create-product.component';
-import { UpdateProductComponent } from './product-update/update-product.component';
+import { AddOrUpdateProductComponent } from './product-add-or-update/add-or-update-product.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UpdateUserComponent } from './user-update/update-user.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { UpdateShoppingComponent } from './shopping-update/update-shopping.component';
-import { SelectedShoppingComponent } from './shopping-selected/selected-shopping.component';
 import { CreateShoppingComponent } from './shopping-create/create-shopping.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ResultComponent } from './result/result.component';
@@ -28,18 +26,16 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-	ProfileComponent,
+	  ProfileComponent,
     ProductListComponent,
-	CreateProductComponent,
-    UpdateProductComponent,
-	UserListComponent,
-	UpdateUserComponent,
-	ShoppingListComponent,
-	UpdateShoppingComponent,
-	SelectedShoppingComponent,
-	CreateShoppingComponent,
-	ItemListComponent,
-	ResultComponent
+    AddOrUpdateProductComponent,
+    UserListComponent,
+    UpdateUserComponent,
+    ShoppingListComponent,
+    UpdateShoppingComponent,
+    CreateShoppingComponent,
+    ItemListComponent,
+    ResultComponent
 
   ],
   imports: [

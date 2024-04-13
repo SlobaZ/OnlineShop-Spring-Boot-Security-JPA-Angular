@@ -1,0 +1,214 @@
+
+:root {
+    --backgroundColor: white;
+    --backgroundColorLight: white;
+    --backgroundColorDark: #000000;
+
+    --backgroundTableChildren : linear-gradient(white, #E8E8E8 47% 53%, white);     
+    --backgroundTableChildrenLight : linear-gradient(white, #E8E8E8 47% 53%, white);     
+    --backgroundTableChildrenDark : linear-gradient(#606060, #000000 35% 70%, #606060);
+
+    --backgroundTableTRHover: linear-gradient(#e6e6e6, #F0FFFF 45% 55%, #e6e6e6);
+    --backgroundTableTRHoverLight: linear-gradient(#e6e6e6, #F0FFFF 45% 55%, #e6e6e6);
+    --backgroundTableTRHoverDark: linear-gradient(#000000, #606060 45% 55%, #000000);
+  
+    --colorFont: black;
+    --colorFontLight: black;
+    --colorFontDark: aliceblue;
+
+    --textshadow: 1px 0.5px black;
+    --textshadowLight: 1px 0.5px black;
+    --textshadowDark: 1px 1px 1px white;
+  
+    --boxshadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 10px 24px 0 rgba(0, 0, 0, 0.19);
+    --boxshadowLight: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 10px 24px 0 rgba(0, 0, 0, 0.19);
+    --boxshadowDark: 0 10px 20px 0 #383838, 0 12px 26px 0 #383838;
+
+    --borderTable: 1px solid #006699;
+    --borderTableLight: 1px solid #006699;
+    --borderTableDark: 3px solid #006699;
+  
+  }
+
+
+
+/*  DESKTOP  */
+.tablemodel {
+    margin-top: 1%;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color: var(--colorFont);
+    background: var(--backgroundColor);
+}
+.rowModel {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin:0;
+    padding:0;
+}
+
+.rowModel p {
+    font-size: 1.2vw;
+    margin:0;
+    padding:0;
+}
+
+.rowModel .btn {
+    margin-left: 10%;
+}
+
+table {
+    width: 100%;
+    table-layout: auto;
+    color: var(--colorFont);
+    background: var(--backgroundColor);
+}
+table:hover {
+    box-shadow: var(--boxshadow);
+    transform: translateY(3px);
+}
+
+table.x {
+  table-layout: fixed;
+}
+
+
+table th,
+table td {
+    font-size: 1.0vw;
+    border: var(--borderTable);
+    border-collapse: collapse;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+  
+table th {
+    font-size: 1.0vw;
+    text-transform: uppercase;
+    background: linear-gradient(#33CCFF, #006699 45% 55%, #33CCFF);
+    color: white;
+}
+
+tr:hover th {
+    background: linear-gradient(#006699, #33CCFF 47% 53%, #006699);
+    text-shadow: 1px 1px #900000;
+}
+
+tr:nth-child(even) {
+    background: var(--backgroundTableChildren);   
+}
+
+tr:hover td {
+    background: var(--backgroundTableTRHover);
+    color: var(--colorFont);
+    text-shadow: var(--textshadow);
+}
+
+table img:hover {
+	border: 2px solid darkslategray;
+    border-radius: 5px;
+}
+
+table input, table input::placeholder, table input:focus {
+  color: var(--colorFont);
+  background-color: var(--backgroundColor);
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+.pagination button, .pagination label {
+  margin: 0 40px;
+}
+
+.pagination label {
+  font-size: 1.1vw;
+}
+  
+.empty {
+    height: 100px;
+    width: 100%;
+}
+
+
+
+
+  /*  MOBILE  */
+  @media screen and (max-width: 767px) {
+    
+    .tablemodel {
+        margin-top: 5%;
+    }
+    .rowModel p {
+        font-size: 4.5vw;
+    }
+    table {
+      border: 0;
+    }
+
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border: 3px solid #ddd;
+      display: block;
+      margin-bottom: 5%;
+    }
+    
+    table td {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 4.5vw;
+      text-align: right;
+      padding-right: 5px;
+    }
+    
+    table td::before {
+      content: attr(data-label);
+      float: left;
+      font-size: 3.5vw;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+        background: transparent;   
+      }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+    .pagination button, .pagination label {
+      margin: 10px;
+    }
+    .pagination label {
+      font-size: 5vw;
+    }
+  }
+  
+
+
+
+

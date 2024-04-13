@@ -1,75 +1,55 @@
-<div class="col-md-12">
-  <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
-    <form
-      *ngIf="!isLoggedIn"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          #username="ngModel"
+
+  <div class="col-md-4 mx-auto col-xxl-3 mx-auto">
+    
+    <img id="profile-img" src="assets/images/avataricon.jpg" />
+
+    @if (!isLoggedIn) {
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
+
+      <div class="form-group-sm mt-2">
+        <label class="form-label" for="username">Username</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required #username="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
         />
-        <div
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="username.errors && f.submitted"
-        >
-          Username is required!
-        </div>
+        @if (username.errors && f.submitted) {
+        <div class="invalid-feedback">Username is required!</div>
+        }
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
+
+      <div class="form-group-sm mt-2">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
         />
-        <div
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="password.errors && f.submitted"
-        >
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
-          </div>
+        @if (password.errors && f.submitted) {
+        <div class="invalid-feedback">
+          @if (password.errors['required']) {
+          <div>Password is required</div>
+          }
+          @if (password.errors['minlength']) {
+          <div>Password must be at least 6 characters</div>
+          }
         </div>
+        }
+      </div>
+
+      <div class="form-group-sm mt-3">
+        <button class="btn btn-submit"> <i class="fas fa-sign-in-alt"></i> Login</button>
       </div>
       <div class="form-group">
-        <button class="btn btn-submit btn-block">
-          Login
-        </button>
-      </div>
-      <div class="form-group">
-        <div
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="f.submitted && isLoginFailed"
-        >
-       <i class='fas fa-exclamation-triangle' style='font-size:24px;color:red'></i> &#160;  Login failed: &#160; {{ errorMessage }}
+        @if (f.submitted && isLoginFailed) {
+        <div class="alert alert-danger" role="alert">
+          Login failed: {{ errorMessage }}
         </div>
+        }
       </div>
+
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn"> 
-    <i class='fas fa-check-circle' style='font-size:24px;color:green'></i>&#160;&#160;  Logged in as &#160; {{ roles }}
-    </div>
-  </div>
+    } @else {
+    <div class="alert alert-success">Logged in as {{ roles }}.</div>
+    }
+
+
 </div>
+

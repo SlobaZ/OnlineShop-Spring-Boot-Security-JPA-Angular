@@ -19,50 +19,74 @@ export class ItemListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getItems();
+    this.getAll();
   }
   
+  async getAll(){
+      await this.getItems();
+  }
+
   getItems(){
-	this.shoppingId = this.route.snapshot.params['id'];
-    this.itemService.getAllsByShoppingId(this.shoppingId).subscribe(data => {
-      this.items = data;
-    }, error => console.log(error));
+      return new Promise((resolve, reject) => {
+        try {
+            this.shoppingId = this.route.snapshot.params['id'];
+            this.itemService.getAllsByShoppingId(this.shoppingId).subscribe(data => {
+                resolve(this.items = data);
+            }); 
+        }
+        catch (error) {
+            reject(console.log(error));
+        }
+    });
  }
 
   deleteItem(id: number){
-    this.itemService.deleteItem(this.shoppingId,id).subscribe( data => {
-      console.log(data);
-      this.getItems();
-    })
+      try {
+            this.itemService.deleteItem(this.shoppingId,id).subscribe( data => {
+                  this.getItems();
+            });
+      }
+      catch (error) {
+            console.log(error);
+      }
   }
 
 
   goToResult(id: number){
-    this.router.navigate(['result',id]);
+      this.router.navigate(['result',id]);
   }
 
   buyItem(id: number, itemQuantity: number ){
-    this.itemService.buyItem(this.shoppingId,id,itemQuantity).subscribe( data =>{
-      console.log(data);
-      this.getItems();
-    },
-    error => console.log(error));
+        try {
+              this.itemService.buyItem(this.shoppingId,id,itemQuantity).subscribe( data =>{
+                    this.getItems();
+              });
+        }
+        catch (error) {
+              console.log(error);
+        }
   }
 
   resetItem(id: number){
-    this.itemService.resetItem(this.shoppingId,id).subscribe( data =>{
-      console.log(data);
-      this.getItems();
-    },
-    error => console.log(error));
+      try {
+            this.itemService.resetItem(this.shoppingId,id).subscribe( data =>{ 
+              this.getItems();
+            });
+      }
+      catch (error) {
+            console.log(error);
+      }
   }
   
   buy(){
-    this.shoppingService.buy(this.shoppingId).subscribe( data =>{
-      console.log(data);
-      this.goToResult(this.shoppingId);
-    },
-    error => console.log(error));
+      try {
+            this.shoppingService.buy(this.shoppingId).subscribe( data =>{
+              this.goToResult(this.shoppingId);
+            });
+      }
+      catch (error) {
+            console.log(error);
+      }
   }
 
 

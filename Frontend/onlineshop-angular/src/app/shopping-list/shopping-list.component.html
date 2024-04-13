@@ -1,48 +1,47 @@
 
-<div class="col-md-12 offset-md-0">
-    <p class="searchP"> Search shoppings </p>
-    <div class="row">
-		<div class="col-2">
-     	<div class="form-group">
-    		<label> User: </label>
-    		<select [(ngModel)]="userId" class="form-control">
-      			<option [defaultSelected]=true [value]="default" >--- Search by user ---</option>
-	  			<option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
-			</select>
-	 	</div>
-	 	</div>
-	 	<div class="col-2">
-    	<div class="form-group">
-       		<label> Code: </label>
-            <input  type="text" class="form-control" placeholder="Search by code" [(ngModel)]="code" />
-    	</div>
-    	</div>
-    	<div class="col-2">
-    	<div class="form-group">
-       		<label> Total price: </label>
-            <input  type="text" class="form-control" placeholder="Search by total price" [(ngModel)]="totalPrice" />
-    	</div>
-    	</div>
-    	<div class="col-3">
-     	<div class="form-group">
-       		<label> Date and time beginning: </label>
-            <input  type="text" class="form-control" placeholder="Beginning - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeBeginning" />
-    	</div>
-    	</div>
-    	<div class="col-3">
-     	<div class="form-group">
-       		<label> Date and time end: </label>
-            <input  type="text" class="form-control" placeholder="End - dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeEnd" />
-    	</div>
-    	</div>
+<p class="ms-1 my-1"> Search shoppings </p>
+
+<div class="d-flex flex-column flex-md-row p-1">  
+
+   <div class="d-flex flex-column flex-md-row p-1">
+            <label class="align-content-center"> User: </label>
+            <select [(ngModel)]="userId" class="ms-md-3">
+                <option [defaultSelected]=true [value]="default" >--- Search by user ---</option>
+                <option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
+            </select>
     </div>
-    <button class="btn btn-search" type="button" (click)="searchShoppings()" > <i class='fas fa-search'></i> Search </button>
+   <div class="d-flex flex-column flex-md-row p-1">
+            <label class="align-content-center"> Code: </label>
+            <input class="ms-md-3"  type="text" placeholder="Search by code" [(ngModel)]="code" />
+    </div>
+   <div class="d-flex flex-column flex-md-row p-1">
+            <label class="align-content-center"> Total price: </label>
+            <input class="ms-md-3"  type="text" placeholder="Search by total price" [(ngModel)]="totalPrice" />
+    </div>
+   <div class="d-flex flex-column flex-md-row p-1">
+            <label class="align-content-center"> Beginning &#10095; </label>
+            <input class="ms-md-3" type="datetime-local"  [(ngModel)]="dateTimeBeginningValue" />
+    </div>
+    <div class="d-flex flex-column flex-md-row p-1">
+        <label class="align-content-center"> End  &#10094; </label>
+        <input class="ms-md-3" type="datetime-local" placeholder="dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeEndValue" />
+    </div>
+   <div class="d-flex flex-column flex-md-row p-1">
+            <button class="btn btn-search ms-md-3 mt-3 mt-md-0" type="button" (click)="searchShoppings()" > <i class='fa fa-search'></i> Search </button>
+    </div>
+
 </div>
 
 <br>
-<p class="listP"> Shopping List</p>
-<div class="table-responsive">
-<table class = "table table-striped table-bordered table-hover">
+
+
+<div class="tablemodel">
+
+    <div class="rowModel">
+        <p> Shopping List</p>        
+    </div>
+
+<table>
     <thead>
         <tr>
             <th> Code</th>
@@ -54,11 +53,11 @@
     </thead>
     <tbody>
         <tr *ngFor = "let shopping of shoppings" >
-            <td> {{ shopping.code }} </td>
-            <td> {{ shopping.userUsername }} </td>
-            <td> {{ shopping.totalPrice }} </td>
-            <td> {{ shopping.dateTime }} </td>
-            <td>
+            <td data-label="Code"> {{ shopping.code }} </td>
+            <td data-label="User"> {{ shopping.userUsername }} </td>
+            <td data-label="Total price"> {{ shopping.totalPrice }} </td>
+            <td data-label="Date & Time"> {{ shopping.dateTime }} </td>
+            <td data-label="Actions">
                 <button (click) = "updateShopping(shopping.id)" class = "btn btn-update"> <i class='fas fa-pencil-alt'></i> Update</button>
                 <button (click) = "deleteShopping(shopping.id)" class = "btn btn-delete" style="margin-left: 10px"> <i class='fas fa-trash-alt'></i> Delete</button>
                 <button (click) = "selectShopping(shopping.id)" class = "btn btn-select" style="margin-left: 10px"> <i class='fa fa-check-square'></i> Select</button>
@@ -66,5 +65,5 @@
         </tr>
     </tbody>
 </table>
-<br>
+<div class="empty"></div>
 </div>

@@ -1,11 +1,14 @@
-<div class="col-md-8 offset-md-2">
-<br>
-    <p class="resultP"><strong> Result of shopping:</strong> </p>
-  	<p class="resultP"><strong>Date and time: </strong> {{shopping.dateTime}}</p>	
-  	<p class="resultP"><strong>User: </strong> {{user.username}}</p>	
-  	<p class="resultP"><strong>Shopping code: </strong> {{shopping.code}}</p>	
-  	<p class="resultP"><strong>Items: </strong></p>	
-  	<table class="table table-striped">
+<div class="col-md-8 mx-auto">
+
+    <p><strong> Result of shopping:</strong> </p>
+  	<p><strong>Date and time: </strong> {{shopping.dateTime}}</p>	
+  	<p><strong>User: </strong> {{shopping.userUsername}}</p>	
+  	<p><strong>Shopping code: </strong> {{shopping.code}}</p>	
+  	<p><strong>Items: </strong></p>	
+
+<div class="tablemodel">
+
+  	<table>
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -17,14 +20,19 @@
 	</thead>
 	<tbody>
   		<tr *ngFor="let item of items">
-			<td *ngIf="item.itemQuantity">{{ item.id }}</td>
-			<td *ngIf="item.itemQuantity">{{ item.productName }}</td>
-			<td *ngIf="item.itemQuantity">{{ item.productPrice }}</td>
-			<td *ngIf="item.itemQuantity">{{ item.itemQuantity }}</td>
-			<td *ngIf="item.itemQuantity">{{ item.itemPrice }}</td>
+			<td data-label="ID" *ngIf="item.itemQuantity">{{ item.id }}</td>
+			<td data-label="Product" *ngIf="item.itemQuantity">{{ item.productName }}</td>
+			<td data-label="Product price" *ngIf="item.itemQuantity">{{ item.productPrice }}</td>
+			<td data-label="Item quantity" *ngIf="item.itemQuantity">{{ item.itemQuantity }}</td>
+			<td data-label="Item price" *ngIf="item.itemQuantity">{{ item.itemPrice }}</td>
 		</tr>
 	</tbody>
 	</table>
-  	<p class="resultP"><strong>Shopping total price: </strong> {{shopping.totalPrice}}</p>	
-  	<br>
-  </div> 
+
+</div> 
+
+  	<p class="mt-3"><strong>Shopping total price: </strong> {{shopping.totalPrice}} </p>	
+
+	<div class="empty"></div>
+  
+</div>

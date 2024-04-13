@@ -24,60 +24,108 @@ export class ProductListComponent implements OnInit {
 
   default='';
 
-  products?: Product[]; 
-  categories?: Category[];
+  products ?: Product[] = []; 
+  categories? : Category[] = [];
+
+  page = 1;
+  pageNum = 0;
 
   constructor(private productService: ProductService, private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
-	 this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-      this.showAdmin = this.roles.includes('ROLE_ADMIN');
-      this.showUser = this.roles.includes('ROLE_USER');
+      if (this.isLoggedIn) {
+        const user = this.tokenStorageService.getUser();
+        this.roles = user.roles;
 
-    }
+        this.showAdmin = this.roles.includes('ROLE_ADMIN');
+        this.showUser = this.roles.includes('ROLE_USER');
 
-	this.getCategories();
-    this.getProducts();
+      }
+
+      this.getAll();
+
+  }
+
+  async getAll() {
+      await this.getCategories();
+      await this.getProducts();
   }
 
   private getProducts(){
-    this.productService.getProductsList().subscribe(data => {
-      this.products = data;
+    return new Promise((resolve, reject) => {
+        try {
+            this.productService.getProductsList(this.pageNum).subscribe(data => {
+                resolve(this.products = data);
+            }); 
+        }
+        catch (error) {
+            reject(console.log(error));
+        }
     });
   }
 
 	private getCategories(){
-    this.productService.getCategories().subscribe(data => {
-      this.categories = data;
+    return new Promise((resolve, reject) => {
+        try {
+            this.productService.getCategories().subscribe(data => {
+              resolve(this.categories = data);
+            }); 
+        }
+        catch (error) {
+              reject(console.log(error));
+        }
     });
   }
 
   addProduct(){
-	this.router.navigate(['create-product']);
+	    this.router.navigate(['add-or-update-product', "add"]);
 	}
 
   updateProduct(id: any){
-    this.router.navigate(['update-product', id]);
+      this.router.navigate(['add-or-update-product', id]);
   }
 
   deleteProduct(id: any){
-    this.productService.deleteProduct(id).subscribe( data => {
-      console.log(data);
-      this.getProducts();
-    })
+      try {
+            this.productService.deleteProduct(id).subscribe( data => {
+              this.getProducts();
+            });
+      }
+      catch (error) {
+            console.log(error);
+      }
   }
 
 	searchProducts(): void {
-    this.productService.findProducts(this.name,this.brand,this.category,this.price).subscribe(data => {
-      this.products = data;
-    });
+        try {
+            this.productService.findProducts(this.name,this.brand,this.category,this.price).subscribe(data => {
+              this.products = data;
+            });
+        }
+        catch (error) {
+              console.log(error);
+        }
   }
 
+
+
+
+  plusPage() {
+    this.page++;
+    this.pageNum++;
+    this.getProducts();
+  }
+
+  minusPage() {
+    if(this.pageNum>0){
+      this.page--;
+      this.pageNum--;
+      this.getProducts();
+    }
+  }
 
 
 

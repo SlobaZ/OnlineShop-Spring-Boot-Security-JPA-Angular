@@ -19,42 +19,51 @@ export class UpdateUserComponent implements OnInit {
  
   id?: any;
   user: User = new User();
-  constructor(private userService: UserService, private tokenStorageService: TokenStorageService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+
+  constructor(private userService: UserService, private tokenStorageService: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-	this.isLoggedIn = !!this.tokenStorageService.getToken();
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
 
-      this.showAdmin = this.roles.includes('ROLE_ADMIN');
-      this.showUser = this.roles.includes('ROLE_USER');
+        this.isLoggedIn = !!this.tokenStorageService.getToken();
+        if (this.isLoggedIn) {
+          const user = this.tokenStorageService.getUser();
+          this.roles = user.roles;
 
-      this.username = user.username;
-    }
-    this.id = this.route.snapshot.params['id'];
+          this.showAdmin = this.roles.includes('ROLE_ADMIN');
+          this.showUser = this.roles.includes('ROLE_USER');
 
-    this.userService.getUserById(this.id).subscribe(data => {
-      this.user = data;
-    }, error => console.log(error));
+          this.username = user.username;
+        }
+
+        try {
+          this.id = this.route.snapshot.params['id'];
+          this.userService.getUserById(this.id).subscribe(data => {
+            this.user = data;
+          });
+        }
+        catch (error) {
+              console.log(error);
+        }
   }
  
   onSubmit(){
-    this.userService.updateUser(this.id, this.user).subscribe( data =>{
-      this.goToUserList();
-    }
-    , error => console.log(error));
+        try {
+              this.userService.updateUser(this.id, this.user).subscribe( data =>{
+                this.goToUserList();
+              });
+        }
+        catch (error) {
+              console.log(error);
+        }
   }
 
   goToUserList(){
-    this.router.navigate(['/users']);
+        this.router.navigate(['/users']);
   }
 
 
   cancel(){
-	this.goToUserList();
+	      this.goToUserList();
   }
 
 

@@ -1,31 +1,30 @@
 <div class="col-md-4 offset-md-4" *ngIf="showAdmin">
-<br>
-<br>
-    <p class="createupdateP"> Update Shopping </p>
+
+    <p> Update Shopping </p>
+
     <form>
     
-        <div class="form-group">
-            <label> Code</label>
-            <input type="text" class ="form-control" id = "code"
-                [(ngModel)] = "shopping.code" name = "code">
+        <div class="form-group mt-2">
+            <label class="form-label"> Code</label>
+            <input type="text" class ="form-control" id = "code" [(ngModel)] = "shopping.code" name = "code">
         </div>
     
-        <div class="form-group">
-            <label> Total price</label>
-            <input type="number" class ="form-control" id = "totalPrice"
-                [(ngModel)] = "shopping.totalPrice" name = "totalPrice">
+        <div class="form-group mt-2">
+            <label class="form-label"> Total price</label>
+            <input type="number" class ="form-control" id = "totalPrice" [(ngModel)] = "shopping.totalPrice" name = "totalPrice">
         </div>
            
-        <div class="form-group">
-            <label> Date & Time</label>
-            <input type="text" class ="form-control" id = "dateTime"
-                [(ngModel)] = "shopping.dateTime" name = "dateTime">
+        <div class="form-group mt-2">
+            <label class="form-label"> Date & Time</label>
+            <input type="text" class ="form-control" id = "dateTime" [(ngModel)] = "shopping.dateTime" name = "dateTime">
         </div>
     <br>
     
-    <div class="form-group">
+    <div class="form-group mt-4">
         <button (click) = "onSubmit()"  class = "btn btn-submit" > <i class='fas fa-sd-card'></i> Submit</button>
         <button (click) = "cancel()"  class = "btn btn-delete" style="margin-left: 50px"> <i class='fas fa-undo-alt'></i> Cancel</button>
  	</div>
+
     </form>
-    </div> 
+    
+</div> 

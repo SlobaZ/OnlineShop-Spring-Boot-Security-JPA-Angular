@@ -26,42 +26,45 @@ export class CreateShoppingComponent implements OnInit {
 
   ngOnInit(): void {
 	
-	this.isLoggedIn = !!this.tokenStorageService.getToken();
+        this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
+        if (this.isLoggedIn) {
+          const user = this.tokenStorageService.getUser();
+          this.roles = user.roles;
 
-      this.showAdmin = this.roles.includes('ROLE_ADMIN');
-      this.showUser = this.roles.includes('ROLE_USER');
+          this.showAdmin = this.roles.includes('ROLE_ADMIN');
+          this.showUser = this.roles.includes('ROLE_USER');
 
-      this.username = user.username;
-	  this.userId = user.id;
-    }
+          this.username = user.username;
+          this.userId = user.id;
+        }
 
-	if(!this.isLoggedIn){
-		this.router.navigate(['login']);
-	}
+        if(!this.isLoggedIn){
+          this.router.navigate(['login']);
+        }
 
 
   }
 
 
   saveShopping(){
-    this.shoppingService.createShopping(this.shopping).subscribe( data =>{
-      console.log(data);
-      this.shopping = data;
-      this.goToItemList(this.shopping.id);
-    },
-    error => console.log(error));
+        try {
+              this.shoppingService.createShopping(this.shopping).subscribe( data =>{
+                    this.shopping = data;
+                    this.goToItemList(this.shopping.id);
+              });
+        }
+        catch (error) {
+              console.log(error);
+        }
   }
 
   goToItemList(id: number){
-    this.router.navigate(['buy', id]);
+      this.router.navigate(['buy', id]);
   }
   
   onSubmit(){
-    console.log(this.shopping);
-    this.saveShopping();
+      console.log(this.shopping);
+      this.saveShopping();
   }
 }

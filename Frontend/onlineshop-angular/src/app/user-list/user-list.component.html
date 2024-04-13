@@ -1,24 +1,33 @@
 <div *ngIf="showAdmin" >
-<div class="col-md-4 offset-md-3">
-    <p class="searchP"> Search users </p>
-    <div class="form-group">
-       <label> Username: </label>
-            <input  type="text" class="form-control" placeholder="Search by username" [(ngModel)]="username" />
-    </div>
-    <div class="form-group">
-       <label> E-mail: </label>
-            <input  type="text" class="form-control" placeholder="Search by e-mail" [(ngModel)]="email" />
-    </div>
-    <button class="btn btn-search" type="button" (click)="searchUsers()" > <i class='fas fa-search'></i> Search </button>
+
+    <p class="ms-1 my-1"> Search users </p>
+
+    <div class="d-flex flex-column flex-md-row">  
+    
+       <div class="d-flex flex-column flex-md-row p-1">
+                <label class="align-content-center"> Username: </label>
+                <input class="ms-md-3"  type="text"  placeholder="Search by username" [(ngModel)]="username" />
+        </div>
+       <div class="d-flex flex-column flex-md-row p-1">
+                <label class="align-content-center"> E-mail: </label>
+                <input class="ms-md-3" type="text"  placeholder="Search by e-mail" [(ngModel)]="email" />
+        </div>
+        <div class="d-flex flex-column flex-md-row p-1">
+                <button class="btn btn-search ms-md-3 mt-3 mt-md-0" type="button" (click)="searchUsers()" > <i class='fa fa-search'></i> Search </button>
+        </div>
 </div>
 
 <br>
-<button (click) = "addUser()" class = "btn btn-add">  <i class='fas fa-plus'></i> Add new</button>
-<br>
-<br>
-<p class="listP"> User List</p>
-<div class="table-responsive">
-<table class = "table table-striped table-bordered table-hover">
+
+
+<div class="tablemodel">
+
+    <div class="rowModel">
+        <p> User List</p>
+        <button (click) = "addUser()" class = "btn btn-add" *ngIf="showAdmin" > <i class='fa fa-plus'></i> Add new</button>
+    </div>
+
+<table>
     <thead>
         <tr>
             <th> Username</th>
@@ -29,10 +38,10 @@
     </thead>
     <tbody>
         <tr *ngFor = "let user of users" >
-            <td> {{ user.username }} </td>
-            <td> {{ user.email }} </td>
-            <td> {{ user.password }} </td>
-            <td>
+            <td data-label="Username"> {{ user.username }} </td>
+            <td data-label="E-mail"> {{ user.email }} </td>
+            <td data-label="Password"> {{ user.password }} </td>
+            <td data-label="Actions">
                 <button (click) = "updateUser(user.id)" class = "btn btn-update"> <i class='fas fa-pencil-alt'></i> Update</button>
                 <button (click) = "deleteUser(user.id)" class = "btn btn-delete" style="margin-left: 10px"> <i class='fas fa-trash-alt'></i> Delete</button>
             </td>
@@ -40,6 +49,6 @@
     </tbody>
 </table>
 </div>
-<br>
+<div class="empty"></div>
 </div>
 
