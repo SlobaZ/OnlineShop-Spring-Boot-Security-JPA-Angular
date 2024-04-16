@@ -8,8 +8,8 @@ import { Item } from '../class/item';
 })
 export class ItemService {
 
-//  private baseURL = "http://localhost:8080/shoppings/{shoppingId}/items";   
-  private shoppingURL = "http://localhost:8080/shoppings";       
+//  private baseURL = "http://localhost:8080/api/shoppings/{shoppingId}/items";   
+  private shoppingURL = "http://localhost:8080/api/shoppings";       
 
   constructor(private httpClient: HttpClient) { }
   

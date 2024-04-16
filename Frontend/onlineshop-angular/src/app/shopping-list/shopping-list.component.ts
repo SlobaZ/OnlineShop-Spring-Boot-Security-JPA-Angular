@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  HostListener } from '@angular/core';
 import { Shopping } from '../class/shopping';
 import { User } from '../class/user';
 import { ShoppingService } from '../services/shopping.service';
@@ -17,8 +17,18 @@ export class ShoppingListComponent implements OnInit {
   showAdmin = false;
   showUser = false;
 
-  shoppings ?: Shopping[]; 
+  shoppings: Array<{	
+        id?: any;
+        code?: string;
+        totalPrice?: any;
+        dateTimeT?: any;
+        dateTime?: any;
+        userId?: any;
+        userUsername?: string;
+  }> =[];
+
   users ?: User[];
+
   userId='';
   code='';
   totalPrice='';
@@ -29,9 +39,12 @@ export class ShoppingListComponent implements OnInit {
 
   default='';
 
+  pageNum = 0;
+
   constructor(private shoppingService: ShoppingService, private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
+
         this.isLoggedIn = !!this.tokenStorageService.getToken();
 
         if (this.isLoggedIn) {
@@ -50,11 +63,43 @@ export class ShoppingListComponent implements OnInit {
       await this.getShoppings();
   }
 
-  private getShoppings(){
+
+  @HostListener('window:scroll', ['$event']) 
+  onScroll(event:Event) {   
+
+        if(document.documentElement.clientHeight + window.scrollY >=
+            (document.documentElement.scrollHeight || document.documentElement.clientHeight)){
+                setTimeout(() => {
+                    console.log('You are at the bottom!');
+                    this.loadMore();
+                }, 1000);
+          }
+   
+  }  
+
+
+
+  loadMore() {
+        if(this.userId!='' || this.code!='' || this.dateTimeBeginningValue!='' || this.dateTimeEndValue!=''){
+            this.searchShoppings();
+        }
+        else{
+            this.pageNum++;
+            this.getShoppings();
+        }
+  }
+
+  
+
+  public getShoppings(){
         return new Promise((resolve, reject) => {
           try {
-            this.shoppingService.getShoppingsList().subscribe(data => {
-                  resolve(this.shoppings = data);
+            this.shoppingService.getShoppingsList(this.pageNum).subscribe(data => {
+                resolve(
+                    data.map((item:any) =>  {
+                        this.shoppings?.push(item);
+                    })
+                );
               }); 
           }
           catch (error) {
@@ -107,7 +152,8 @@ export class ShoppingListComponent implements OnInit {
 
  searchShoppings(): void {
         try {
-            this. dateTimeBeginning = this.formatDateTime(this.dateTimeBeginningValue);
+            this.pageNum = 0;
+            this.dateTimeBeginning = this.formatDateTime(this.dateTimeBeginningValue);
             this.dateTimeEnd = this.formatDateTime(this.dateTimeEndValue);
             this.shoppingService.searchShoppings(this.userId,this.code,this.totalPrice,this.dateTimeBeginning,this.dateTimeEnd).subscribe(data => {
                   this.shoppings = data;

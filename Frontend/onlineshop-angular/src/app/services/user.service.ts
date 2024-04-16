@@ -8,12 +8,12 @@ import { User } from '../class/user';
 })
 export class UserService {
 
-  private baseURL = "http://localhost:8080/users";
+  private baseURL = "http://localhost:8080/api/users";
 
   constructor(private httpClient: HttpClient) { }
   
-  getUsersList(): Observable<User[]>{
-    return this.httpClient.get<User[]>(`${this.baseURL}`);
+  getUsersList(pageNum:number): Observable<User[]>{
+    return this.httpClient.get<User[]>(`${this.baseURL}?pageNum=${pageNum}`);
   }
 
   createUser(user: User): Observable<Object>{
@@ -33,8 +33,8 @@ export class UserService {
   }
 
 
-  findUsers(username:any,email:any): Observable<User[]>{
-     return this.httpClient.get<User[]>(`${this.baseURL}?username=${username}&email=${email}`);
+  findUsers(username:any,email:any,pageNum:number): Observable<User[]>{
+     return this.httpClient.get<User[]>(`${this.baseURL}?username=${username}&email=${email}&pageNum=${pageNum}`);
   }
 
 

@@ -9,14 +9,15 @@ import { User } from '../class/user';
 })
 export class ShoppingService {
 
-  private baseURL = "http://localhost:8080/shoppings";
-  private userURL = "http://localhost:8080/users";
+  private baseURL = "http://localhost:8080/api/shoppings";
+  private userURL = "http://localhost:8080/api/users";
 
   constructor(private httpClient: HttpClient) { }
   
-  getShoppingsList(): Observable<Shopping[]>{
-    return this.httpClient.get<Shopping[]>(`${this.baseURL}`);
+  getShoppingsList(pageNum:number): Observable<Shopping[]>{
+    return this.httpClient.get<Shopping[]>(`${this.baseURL}?pageNum=${pageNum}`);
   }
+
 
   createShopping(shopping: Shopping): Observable<Object>{
     return this.httpClient.post(`${this.baseURL}`, shopping);

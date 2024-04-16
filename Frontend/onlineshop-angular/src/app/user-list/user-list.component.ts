@@ -20,6 +20,9 @@ export class UserListComponent implements OnInit {
 	username='';
 	email='';
 
+  page = 1;
+  pageNum = 0;
+
   constructor(private userService: UserService, private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
@@ -41,7 +44,7 @@ export class UserListComponent implements OnInit {
   private getUsers(){
         return new Promise((resolve, reject) => {
               try {
-                  this.userService.getUsersList().subscribe(data => {
+                  this.userService.getUsersList(this.pageNum).subscribe(data => {
                       resolve(this.users = data);
                   }); 
               }
@@ -72,9 +75,9 @@ export class UserListComponent implements OnInit {
 
 
 
- 	searchUsers(): void {
+searchUsers(): void {
         try {
-              this.userService.findUsers(this.username,this.email).subscribe(data => {
+              this.userService.findUsers(this.username,this.email,this.pageNum).subscribe(data => {
                 this.users = data;
               });
         }
@@ -83,6 +86,29 @@ export class UserListComponent implements OnInit {
         }
   }
 
+  plusPage() {
+      this.page++;
+      this.pageNum++;
+      if(this.username!='' || this.email!=''){
+          this.searchUsers();
+      }
+      else{
+          this.getUsers();
+      }
+}
+  
+minusPage() {
+      if(this.pageNum>0){
+            this.page--;
+            this.pageNum--;
+            if(this.username!='' || this.email!=''){
+              this.searchUsers();
+            }
+            else{
+                this.getUsers();
+            }
+      }
+}
 
 
 

@@ -41,9 +41,10 @@
         <p> Shopping List</p>        
     </div>
 
-<table>
+<table>   
     <thead>
         <tr>
+            <th> O/N </th>
             <th> Code</th>
             <th> User </th>
             <th> Total price </th>
@@ -52,7 +53,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor = "let shopping of shoppings" >
+        <tr *ngFor = "let shopping of shoppings; index as i"> 
+            <td data-label="O/N"> {{ i+1 }} </td>
             <td data-label="Code"> {{ shopping.code }} </td>
             <td data-label="User"> {{ shopping.userUsername }} </td>
             <td data-label="Total price"> {{ shopping.totalPrice }} </td>
@@ -65,5 +67,11 @@
         </tr>
     </tbody>
 </table>
+
+<div class="div-load">
+        <button class="btn btn-submit" (click) = "loadMore()"> <i class="fas fa-sync fa-spin"></i>  Load  more </button> 
+</div>
+
 <div class="empty"></div>
+
 </div>

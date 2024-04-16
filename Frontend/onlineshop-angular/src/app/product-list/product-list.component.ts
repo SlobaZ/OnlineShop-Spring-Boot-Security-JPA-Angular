@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Product } from '../class/product'
 import { ProductService } from '../services/product.service'
 import { Router } from '@angular/router';
@@ -17,14 +17,24 @@ export class ProductListComponent implements OnInit {
   showAdmin = false;
   showUser = false;
 
-  name='';
-  brand='';
-  category ='';
-  price='';
+  name = '';
+  brand = '';
+  category = '';
+  price = '';
 
-  default='';
+  default = '';
 
-  products ?: Product[] = []; 
+  // products ?: Product[] = []; 
+
+  products: Array<{	
+    id?: any;
+    name?: string;
+	  brand?: string;
+    quantity?: number;
+    price?: number;
+    category?:any;
+  }> =[];
+
   categories? : Category[] = [];
 
   page = 1;
@@ -54,11 +64,40 @@ export class ProductListComponent implements OnInit {
       await this.getProducts();
   }
 
+  
+  @HostListener('window:scroll', ['$event']) 
+  onScroll(event:Event) {   
+
+        if(document.documentElement.clientHeight + window.scrollY >=
+            (document.documentElement.scrollHeight || document.documentElement.clientHeight)){
+                setTimeout(() => {
+                    console.log('You are at the bottom!');
+                    this.loadMore();
+                }, 1000);
+          }
+   
+  }  
+
+
+  loadMore() {
+        if(this.name!='' || this.brand!='' || this.category!='' || this.price!=''){
+            this.searchProducts();
+        }
+        else{
+            this.pageNum++;
+            this.getProducts();
+        }
+  }
+
   private getProducts(){
     return new Promise((resolve, reject) => {
         try {
             this.productService.getProductsList(this.pageNum).subscribe(data => {
-                resolve(this.products = data);
+                resolve(
+                    data.map((item:any) =>  {
+                        this.products?.push(item);
+                    })
+                );
             }); 
         }
         catch (error) {
@@ -101,7 +140,8 @@ export class ProductListComponent implements OnInit {
 
 	searchProducts(): void {
         try {
-            this.productService.findProducts(this.name,this.brand,this.category,this.price).subscribe(data => {
+            this.pageNum = 0;
+            this.productService.searchProducts(this.name,this.brand,this.category,this.price).subscribe(data => {
               this.products = data;
             });
         }
@@ -113,19 +153,6 @@ export class ProductListComponent implements OnInit {
 
 
 
-  plusPage() {
-    this.page++;
-    this.pageNum++;
-    this.getProducts();
-  }
-
-  minusPage() {
-    if(this.pageNum>0){
-      this.page--;
-      this.pageNum--;
-      this.getProducts();
-    }
-  }
 
 
 

@@ -15,7 +15,7 @@
         <div class="d-flex flex-column flex-md-row p-1">
                 <button class="btn btn-search ms-md-3 mt-3 mt-md-0" type="button" (click)="searchUsers()" > <i class='fa fa-search'></i> Search </button>
         </div>
-</div>
+    </div>
 
 <br>
 
@@ -30,6 +30,7 @@
 <table>
     <thead>
         <tr>
+            <th> ID </th>
             <th> Username</th>
             <th> E-mail </th>
             <th> Password</th>
@@ -38,6 +39,7 @@
     </thead>
     <tbody>
         <tr *ngFor = "let user of users" >
+            <td data-label="ID"> {{ user.id }} </td>
             <td data-label="Username"> {{ user.username }} </td>
             <td data-label="E-mail"> {{ user.email }} </td>
             <td data-label="Password"> {{ user.password }} </td>
@@ -48,7 +50,17 @@
         </tr>
     </tbody>
 </table>
+
+<div class="pagination">
+    <button class="btn btn-pagination" (click) = "minusPage()"> <i class='fas fa-less-than'></i> <i class='fas fa-less-than'></i> Previous  </button>
+    <label> {{page}} </label>
+    <button class="btn btn-pagination" (click) = "plusPage()"> Next  <i class='fas fa-greater-than'></i> <i class='fas fa-greater-than'></i> </button> 
 </div>
+
+
 <div class="empty"></div>
+
+</div>
+
 </div>
 

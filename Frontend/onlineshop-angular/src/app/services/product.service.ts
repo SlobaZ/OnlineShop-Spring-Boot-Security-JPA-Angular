@@ -9,7 +9,7 @@ import { Category } from '../class/category';
 })
 export class ProductService {
 
-  private baseURL = "http://localhost:8080/products";
+  private baseURL = "http://localhost:8080/api/products";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -34,7 +34,7 @@ export class ProductService {
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 
-  findProducts(name:any,brand:any,category:any,price:any): Observable<Product[]>{
+  searchProducts(name:any,brand:any,category:any,price:any): Observable<Product[]>{
      return this.httpClient.get<Product[]>(`${this.baseURL}?name=${name}&brand=${brand}&category=${category}&price=${price}`);
   }
 
