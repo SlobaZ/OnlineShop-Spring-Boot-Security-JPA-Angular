@@ -24,8 +24,6 @@ export class ProductListComponent implements OnInit {
 
   default = '';
 
-  // products ?: Product[] = []; 
-
   products: Array<{	
     id?: any;
     name?: string;
@@ -37,7 +35,6 @@ export class ProductListComponent implements OnInit {
 
   categories? : Category[] = [];
 
-  page = 1;
   pageNum = 0;
 
   constructor(private productService: ProductService, private tokenStorageService: TokenStorageService, private router: Router) { }
@@ -67,56 +64,79 @@ export class ProductListComponent implements OnInit {
   
   @HostListener('window:scroll', ['$event']) 
   onScroll(event:Event) {   
-
         if(document.documentElement.clientHeight + window.scrollY >=
             (document.documentElement.scrollHeight || document.documentElement.clientHeight)){
                 setTimeout(() => {
                     console.log('You are at the bottom!');
                     this.loadMore();
                 }, 1000);
-          }
-   
+          }   
   }  
 
 
   loadMore() {
-        if(this.name!='' || this.brand!='' || this.category!='' || this.price!=''){
-            this.searchProducts();
+      this.pageNum++;
+      this.getProducts();
+  }
+
+  getRequestParams(name:string, brand:string, category:any, price:any, pageNum: number): any {
+        let params: any = {};
+        if (name) {
+          params[`name`] = name;
         }
-        else{
-            this.pageNum++;
-            this.getProducts();
+        if (brand) {
+            params[`brand`] = brand;
         }
+        if (category) {
+            params[`category`] = category;
+        }
+        if (price) {
+            params[`price`] = this.price;
+        }
+        if (pageNum) {
+          params[`pageNum`] = pageNum ;
+        }
+    return params;
   }
 
   private getProducts(){
-    return new Promise((resolve, reject) => {
-        try {
-            this.productService.getProductsList(this.pageNum).subscribe(data => {
-                resolve(
-                    data.map((item:any) =>  {
-                        this.products?.push(item);
-                    })
-                );
-            }); 
-        }
-        catch (error) {
-            reject(console.log(error));
-        }
-    });
+        return new Promise((resolve, reject) => {
+            try {
+              const params = this.getRequestParams(this.name, this.brand, this.category, this.price, this.pageNum);
+              if(this.pageNum==0){
+                  resolve(
+                      this.productService.getProductsList(params).subscribe(data => {
+                              this.products = data;
+                      })
+                  );
+              }
+              else {
+                  resolve(
+                      this.productService.getProductsList(params).subscribe(data => {
+                              data.map((item:any) =>  {
+                                  this.products?.push(item);
+                              })
+                      })
+                  );
+              }
+            }
+            catch (error) {
+                reject(console.log(error));
+            }
+        });
   }
 
 	private getCategories(){
-    return new Promise((resolve, reject) => {
-        try {
-            this.productService.getCategories().subscribe(data => {
-              resolve(this.categories = data);
-            }); 
-        }
-        catch (error) {
-              reject(console.log(error));
-        }
-    });
+      return new Promise((resolve, reject) => {
+          try {
+              this.productService.getCategories().subscribe(data => {
+                resolve(this.categories = data);
+              }); 
+          }
+          catch (error) {
+                reject(console.log(error));
+          }
+      });
   }
 
   addProduct(){
@@ -139,15 +159,8 @@ export class ProductListComponent implements OnInit {
   }
 
 	searchProducts(): void {
-        try {
-            this.pageNum = 0;
-            this.productService.searchProducts(this.name,this.brand,this.category,this.price).subscribe(data => {
-              this.products = data;
-            });
-        }
-        catch (error) {
-              console.log(error);
-        }
+      this.pageNum = 0;
+      this.getProducts();
   }
 
 

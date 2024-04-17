@@ -15,7 +15,7 @@ import onlineshop.models.Shopping;
 @Repository
 public interface ShoppingRepository extends JpaRepository<Shopping, Integer>{
 
-//	Page<Kupovina> findByUserId(Long userId, Pageable page);
+//	Page<Kupovina> findByUserId(Integer userId, Pageable page);
 	
 	@Query("SELECT s FROM Shopping s WHERE "
 			+ "(:userId IS NULL or s.user.id = :userId ) AND "
@@ -25,7 +25,7 @@ public interface ShoppingRepository extends JpaRepository<Shopping, Integer>{
 			+ "(:dateTimeEnd IS NULL or s.dateTimeT <= :dateTimeEnd ) "
 			)
 	Page<Shopping> search(
-			@Param("userId") Long userId, 
+			@Param("userId") Integer userId, 
 			@Param("code") String code, 
 			@Param("totalPrice") Double totalPrice,
 			@Param("dateTimeBeginning") Timestamp dateTimeBeginning,

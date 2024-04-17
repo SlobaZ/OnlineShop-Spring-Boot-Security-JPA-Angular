@@ -72,7 +72,7 @@ public class JpaShoppingService implements ShoppingService{
 
 	
 	@Override
-	public Page<Shopping> search(Long userId, String code, Double totalPrice, 
+	public Page<Shopping> search(Integer userId, String code, Double totalPrice, 
 			String dateTimeBeginning, String dateTimeEnd, int pageNum) {
 		
 		Timestamp beginDateTime = null;

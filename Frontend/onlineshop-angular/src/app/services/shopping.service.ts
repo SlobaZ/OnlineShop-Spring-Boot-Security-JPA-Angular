@@ -13,9 +13,10 @@ export class ShoppingService {
   private userURL = "http://localhost:8080/api/users";
 
   constructor(private httpClient: HttpClient) { }
-  
-  getShoppingsList(pageNum:number): Observable<Shopping[]>{
-    return this.httpClient.get<Shopping[]>(`${this.baseURL}?pageNum=${pageNum}`);
+
+
+  getShoppingsList(params: any): Observable<Shopping[]>{
+    return this.httpClient.get<Shopping[]>(`${this.baseURL}`,  { params });
   }
 
 
@@ -39,9 +40,6 @@ export class ShoppingService {
     return this.httpClient.post(`${this.baseURL}/${id}/buy`, id);
   }
 
-  searchShoppings(userId:any,code:any,totalPrice:any,dateTimeBeginning:any,dateTimeEnd:any): Observable<Shopping[]>{
-     return this.httpClient.get<Shopping[]>(`${this.baseURL}?userId=${userId}&code=${code}&totalPrice=${totalPrice}&dateTimeBeginning=${dateTimeBeginning}&dateTimeEnd=${dateTimeEnd}`);
-  }
 
   getUsers(): Observable<User[]>{
     return this.httpClient.get<User[]>(`${this.userURL}`);

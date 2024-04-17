@@ -66,7 +66,6 @@ export class ShoppingListComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event']) 
   onScroll(event:Event) {   
-
         if(document.documentElement.clientHeight + window.scrollY >=
             (document.documentElement.scrollHeight || document.documentElement.clientHeight)){
                 setTimeout(() => {
@@ -74,39 +73,64 @@ export class ShoppingListComponent implements OnInit {
                     this.loadMore();
                 }, 1000);
           }
-   
   }  
 
+  async loadMore() {
+        this.pageNum++;
+        this.getShoppings();
+}
 
 
-  loadMore() {
-        if(this.userId!='' || this.code!='' || this.dateTimeBeginningValue!='' || this.dateTimeEndValue!=''){
-            this.searchShoppings();
-        }
-        else{
-            this.pageNum++;
-            this.getShoppings();
-        }
-  }
+    getRequestParams(userId:any, code:string, totalPrice:any, dateTimeBeginningValue:any, dateTimeEndValue:any, pageNum: number): any {
+            let params: any = {};
+            if (userId) {
+            params[`userId`] = userId;
+            }
+            if (code) {
+                params[`code`] = code;
+            }
+            if (totalPrice) {
+                params[`totalPrice`] = totalPrice;
+            }
+            if (dateTimeBeginningValue) {
+                params[`dateTimeBeginning`] = this.formatDateTime(dateTimeBeginningValue);
+            }
+            if (dateTimeEndValue) {
+                params[`dateTimeEnd`] = this.formatDateTime(dateTimeEndValue);
+            }
+            if (pageNum) {
+            params[`pageNum`] = pageNum ;
+            }
+        return params;
+    }
 
-  
-
-  public getShoppings(){
+  private getShoppings(){
         return new Promise((resolve, reject) => {
           try {
-            this.shoppingService.getShoppingsList(this.pageNum).subscribe(data => {
+            const params = this.getRequestParams(this.userId, this.code, this.totalPrice, this.dateTimeBeginningValue, this.dateTimeEndValue, this.pageNum);
+            if(this.pageNum==0){
                 resolve(
-                    data.map((item:any) =>  {
-                        this.shoppings?.push(item);
+                    this.shoppingService.getShoppingsList(params).subscribe(data => {
+                            this.shoppings = data;
                     })
                 );
-              }); 
+            }
+            else {
+                resolve(
+                    this.shoppingService.getShoppingsList(params).subscribe(data => {
+                            data.map((item:any) =>  {
+                                this.shoppings?.push(item);
+                            })
+                    })
+                );
+            }
           }
           catch (error) {
               reject(console.log(error));
           }
       });
   }
+
 
   private getUsers(){
         return new Promise((resolve, reject) => {
@@ -120,6 +144,7 @@ export class ShoppingListComponent implements OnInit {
           }
       });
   }
+
 
   addShopping(){
 	      this.router.navigate(['create-shopping']);
@@ -150,21 +175,13 @@ export class ShoppingListComponent implements OnInit {
       return formatedValue;
   }
 
- searchShoppings(): void {
-        try {
-            this.pageNum = 0;
-            this.dateTimeBeginning = this.formatDateTime(this.dateTimeBeginningValue);
-            this.dateTimeEnd = this.formatDateTime(this.dateTimeEndValue);
-            this.shoppingService.searchShoppings(this.userId,this.code,this.totalPrice,this.dateTimeBeginning,this.dateTimeEnd).subscribe(data => {
-                  this.shoppings = data;
-            });
-        }
-        catch (error) {
-              console.log(error);
-        }
+  searchShoppings() : void  {
+        this.pageNum = 0;
+        this.getShoppings();
   }
 
- selectShopping(id: number){
+
+  selectShopping(id: number){
         this.router.navigate(['result',id]);
   }
   

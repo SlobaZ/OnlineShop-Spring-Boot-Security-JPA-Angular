@@ -18,7 +18,7 @@ public interface ShoppingService {
 	Shopping delete(Integer id);
 		
 	Page<Shopping> search(
-			@Param("userid") Long userId, 
+			@Param("userid") Integer userId, 
 			@Param("code") String code, 
 			@Param("totalPrice") Double totalPrice,
 			@Param("dateTimeBeginning") String dateTimeBeginning,

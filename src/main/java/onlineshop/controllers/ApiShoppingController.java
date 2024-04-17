@@ -48,7 +48,7 @@ public class ApiShoppingController {
 	@GetMapping()
 	@PreAuthorize("hasRole('ADMIN')")
 	ResponseEntity<List<ShoppingDTO>> getAllShoppings(
-			@RequestParam(required=false) Long userId, 
+			@RequestParam(required=false) Integer userId, 
 			@RequestParam(required=false) String code, 
 			@RequestParam(required=false) Double totalPrice, 
 			@RequestParam(required=false) String dateTimeBeginning,
