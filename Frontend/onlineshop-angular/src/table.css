@@ -34,7 +34,6 @@
 
 /*  DESKTOP  */
 .tablemodel {
-    margin-top: 1%;
     width: 100%;
     height: auto;
     display: flex;
@@ -137,9 +136,17 @@ table input, table input::placeholder, table input:focus {
 .pagination label {
   font-size: 1.1vw;
 }
+
+.div-load {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
   
 .empty {
-    height: 100px;
+    height: 200px;
     width: 100%;
 }
 
@@ -148,7 +155,6 @@ table input, table input::placeholder, table input:focus {
 
   /*  MOBILE  */
   @media screen and (max-width: 767px) {
-    
     .tablemodel {
         margin-top: 5%;
     }
@@ -191,6 +197,7 @@ table input, table input::placeholder, table input:focus {
       font-size: 3.5vw;
       font-weight: bold;
       text-transform: uppercase;
+      padding: 2% 0;
     }
 
     tr:nth-child(even) {

@@ -21,6 +21,9 @@ export class AddOrUpdateProductComponent implements OnInit {
   product : Product = new Product();
   title ?: string;
 
+  errorMessage = '';
+  unsuccessful = false;
+
   constructor(private productService: ProductService, private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -62,20 +65,28 @@ export class AddOrUpdateProductComponent implements OnInit {
           try {
               this.productService.createProduct(this.product).subscribe( data =>{
                 this.goToProductList()
+              },
+              error => {
+                this.unsuccessful = true;
               });
           }
-          catch (error) {
+          catch (error:any) {
                 console.log(error);
+                this.unsuccessful = true;
           }
       }
       else {
           try {
             this.productService.updateProduct(this.id, this.product).subscribe( data =>{
               this.goToProductList();
+            },
+            error => {
+              this.unsuccessful = true;
             });
           }
-          catch (error) {
+          catch (error:any) {
                 console.log(error);
+                this.unsuccessful = true;
           }
       }
 

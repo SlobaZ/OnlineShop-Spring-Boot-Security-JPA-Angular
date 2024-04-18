@@ -30,11 +30,17 @@ input, select {
     box-shadow: 2px 1px #ccc;
 }
 
+input, select, label {
+    padding: 0;
+    font-size: 1.0vw;
+}
+
 input[type="datetime-local"] {
     cursor: pointer;
     position: relative;
     text-align: right;
     padding-right: 15px;  
+    padding-left: 15px;
 }
   
 input[type="datetime-local"]::-webkit-calendar-picker-indicator  {
@@ -55,8 +61,19 @@ p {
 
 
 
+@media screen and (min-width: 768px) and (max-width: 1150px){
+    .col-md-4 {
+        margin-top: 1%;
+        padding: 5%;
+        border-radius: 5px;
+    }
+}
 
-@media screen and (max-width: 990px) {
+
+
+
+  /*  MOBILE  */
+  @media screen and (max-width: 767px) {
     .col-md-4 {
         margin-top: 30%;
         padding: 5%;
@@ -68,5 +85,4 @@ p {
     input, select, label {
         font-size: 4.5vw;
     }
-
-}
+  }

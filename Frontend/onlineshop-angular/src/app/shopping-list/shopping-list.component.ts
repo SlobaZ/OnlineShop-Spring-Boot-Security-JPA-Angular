@@ -73,6 +73,12 @@ export class ShoppingListComponent implements OnInit {
                     this.loadMore();
                 }, 1000);
           }
+        //   if(window.scrollY==0){
+        //         if( this.userId=='' && this.code=='' && this.totalPrice=='' && this.dateTimeBeginningValue=='' &&  this.dateTimeEndValue==''){
+        //                 this.pageNum=0;
+        //                 this.getShoppings();
+        //         }
+        //   }
   }  
 
   async loadMore() {
@@ -157,6 +163,7 @@ export class ShoppingListComponent implements OnInit {
   deleteShopping(id: number){
         try {
             this.shoppingService.deleteShopping(id).subscribe( data => {
+                this.pageNum = 0;
                 this.getShoppings();
             });
         }

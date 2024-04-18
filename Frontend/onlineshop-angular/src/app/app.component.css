@@ -21,7 +21,7 @@
 	opacity:75%;
 }
 .nav-item {
-  font-size: large;
+  font-size: 1.1vw;
 }
 #screensize {
 	margin-left:5%;
@@ -31,9 +31,12 @@
 
 
 
-@media screen and (min-width: 991px) and (max-width: 1150px) {	
+@media screen and (min-width: 768px) and (max-width: 1150px) {	
   .nav-item {
-    font-size: medium;
+    font-size: 1.0vw;
+  }
+  .navbar-collapse {
+    text-align: center;
   }
   #screensize {
     margin-top:8%;
@@ -42,12 +45,15 @@
 
 
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 767px) {
   .navbar:hover{
     background: linear-gradient(#33CCFF , #006699 30% 70% , #33CCFF );
   }
   .navbar-toggler {
     border: 2px solid aliceblue;
+  }
+  .nav-item {
+    font-size: 4vw;
   }
   .navbar-collapse {
     margin-top: 10px;

@@ -2,32 +2,66 @@
 
     <p> {{getTitle()}} </p>
 
-    <form>
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate >
     
         <div class="form-group mt-2">
             <label class="form-label"> Name</label>
-            <input type="text" class ="form-control" id = "name" [(ngModel)] = "product.name" name = "name">
+            <input type="text" class ="form-control" id = "name" [(ngModel)] = "product.name" name = "name" 
+                required #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.errors }" />
+                    @if (name.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (name.errors['required']) { <div>Name is required</div> }
+                        </div>
+                    }
         </div>
         
         <div class="form-group mt-2">
             <label class="form-label"> Brand</label>
-            <input type="text" class ="form-control" id = "brand" [(ngModel)] = "product.brand" name = "brand">
+            <input type="text" class ="form-control" id = "brand" [(ngModel)] = "product.brand" name = "brand"
+                    required #brand="ngModel" [ngClass]="{ 'is-invalid': f.submitted && brand.errors }" />
+                    @if (brand.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                                @if (brand.errors['required']) { <div>Brand is required</div> }
+                        </div>
+                    }
         </div>
     
         <div class="form-group mt-2">
             <label class="form-label"> Quantity</label>
-            <input type="number" class ="form-control" id = "quantity" [(ngModel)] = "product.quantity" name = "quantity">
+            <input type="number" class ="form-control" id = "quantity" [(ngModel)] = "product.quantity" name = "quantity"
+                    required min="1" #quantity="ngModel" [ngClass]="{ 'is-invalid': f.submitted && quantity.errors }" />
+                    @if (quantity.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (quantity.errors['required']) { <div>Quantity is required</div> }
+                            @if (quantity.errors['min']) { <div>Only positive number</div> }
+                        </div>
+                    }
         </div>
     
         <div class="form-group mt-2">
             <label class="form-label"> Price</label>
-            <input type="number" class ="form-control" id = "price" [(ngModel)] = "product.price" name = "price">
+            <input type="number" class ="form-control" id = "price" [(ngModel)] = "product.price" name = "price"
+                    required min="1" #price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && price.errors }" />
+                    @if (price.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (price.errors['required']) { <div>Price is required</div> }
+                            @if (price.errors['min']) { <div>Only positive number</div> }
+                        </div>
+                    }
         </div>
 
         <div class="form-group mt-4">
-        	<button (click) = "onSubmit()"  class = "btn btn-submit" > <i class='fas fa-sd-card'></i> Submit</button>
+        	<button type="submit"  class = "btn btn-submit" > <i class='fas fa-sd-card'></i> Submit</button>          <!-- (click) = "onSubmit()" -->
         	<button (click) = "cancel()"  class = "btn btn-delete" style="margin-left: 50px"> <i class='fas fa-undo-alt'></i> Cancel</button>
  		</div>
+
+         <div class="form-group mt-3">
+            @if (unsuccessful) {
+            <div class="alert alert-danger" role="alert">
+                Data entry: <strong> FAILED </strong>
+            </div>
+            }
+    </div>
     
     </form>
 

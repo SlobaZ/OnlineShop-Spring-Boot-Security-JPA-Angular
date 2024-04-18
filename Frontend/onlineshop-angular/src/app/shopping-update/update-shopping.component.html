@@ -2,26 +2,46 @@
 
     <p> Update Shopping </p>
 
-    <form>
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate >
     
         <div class="form-group mt-2">
             <label class="form-label"> Code</label>
-            <input type="text" class ="form-control" id = "code" [(ngModel)] = "shopping.code" name = "code">
+            <input type="text" class ="form-control" id = "code" [(ngModel)] = "shopping.code" name = "code"
+                    required #code="ngModel" [ngClass]="{ 'is-invalid': f.submitted && code.errors }" />
+                    @if (code.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (code.errors['required']) { <div>Code is required</div> }
+                        </div>
+                    }
         </div>
     
         <div class="form-group mt-2">
             <label class="form-label"> Total price</label>
-            <input type="number" class ="form-control" id = "totalPrice" [(ngModel)] = "shopping.totalPrice" name = "totalPrice">
+            <input type="number" class ="form-control" id = "totalPrice" [(ngModel)] = "shopping.totalPrice" name = "totalPrice"
+                    required min="1" #totalPrice="ngModel" [ngClass]="{ 'is-invalid': f.submitted && totalPrice.errors }" />
+                    @if (totalPrice.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (totalPrice.errors['required']) { <div>Total price is required</div> }
+                            @if (totalPrice.errors['min']) { <div>Only positive number</div> }
+                        </div>
+                    }
         </div>
            
         <div class="form-group mt-2">
             <label class="form-label"> Date & Time</label>
-            <input type="text" class ="form-control" id = "dateTime" [(ngModel)] = "shopping.dateTime" name = "dateTime">
+            <input type="text" class ="form-control" id = "dateTime" [(ngModel)] = "shopping.dateTime" name = "dateTime" placeholder="dd.mm.yyyy. hh:mm"
+                    required pattern="\d{2}(\.)\d{2}(\.)\d{4}(\.)\s\d{2}(\:)\d{2}"  #dateTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && dateTime.errors }" />
+                    @if (dateTime.errors && f.submitted) {
+                        <div class="invalid-feedback">
+                            @if (dateTime.errors['required']) { <div>Date & Time is required</div> }
+                            @if (dateTime.errors['pattern']) { <div>DD.MM.YYYY. HH:MM</div> }
+                        </div>
+                    }
         </div>
     <br>
     
     <div class="form-group mt-4">
-        <button (click) = "onSubmit()"  class = "btn btn-submit" > <i class='fas fa-sd-card'></i> Submit</button>
+        <button type="submit"  class = "btn btn-submit" > <i class='fas fa-sd-card'></i> Submit</button>      <!-- (click) = "onSubmit()" -->
         <button (click) = "cancel()"  class = "btn btn-delete" style="margin-left: 50px"> <i class='fas fa-undo-alt'></i> Cancel</button>
  	</div>
 

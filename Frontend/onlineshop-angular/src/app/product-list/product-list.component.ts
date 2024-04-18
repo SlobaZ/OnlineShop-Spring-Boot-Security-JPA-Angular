@@ -150,6 +150,7 @@ export class ProductListComponent implements OnInit {
   deleteProduct(id: any){
       try {
             this.productService.deleteProduct(id).subscribe( data => {
+              this.pageNum = 0;
               this.getProducts();
             });
       }

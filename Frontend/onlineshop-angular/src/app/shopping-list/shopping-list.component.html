@@ -1,33 +1,33 @@
 
 <p class="ms-1 my-1"> Search shoppings </p>
 
-<div class="d-flex flex-column flex-md-row p-1">  
+<div class="d-flex flex-column flex-lg-row p-1">  
 
-   <div class="d-flex flex-column flex-md-row p-1">
+   <div class="d-flex flex-column flex-lg-row p-1">
             <label class="align-content-center"> User: </label>
-            <select [(ngModel)]="userId" class="ms-md-3">
+            <select [(ngModel)]="userId" class="ms-lg-3">
                 <option [defaultSelected]=true [value]="default" >--- Search by user ---</option>
                 <option *ngFor="let user of users" [ngValue]="user.id" > {{ user.username }} </option>
             </select>
     </div>
-   <div class="d-flex flex-column flex-md-row p-1">
+   <div class="d-flex flex-column flex-lg-row p-1">
             <label class="align-content-center"> Code: </label>
-            <input class="ms-md-3"  type="text" placeholder="Search by code" [(ngModel)]="code" />
+            <input class="ms-lg-3"  type="text" placeholder="Search by code" [(ngModel)]="code" />
     </div>
-   <div class="d-flex flex-column flex-md-row p-1">
+   <div class="d-flex flex-column flex-lg-row p-1">
             <label class="align-content-center"> Total price: </label>
-            <input class="ms-md-3"  type="text" placeholder="Search by total price" [(ngModel)]="totalPrice" />
+            <input class="ms-lg-3"  type="text" placeholder="Search by total price" [(ngModel)]="totalPrice" />
     </div>
-   <div class="d-flex flex-column flex-md-row p-1">
+   <div class="d-flex flex-column flex-lg-row p-1">
             <label class="align-content-center"> Beginning &#10095; </label>
-            <input class="ms-md-3" type="datetime-local"  [(ngModel)]="dateTimeBeginningValue" />
+            <input class="ms-lg-3" type="datetime-local"  [(ngModel)]="dateTimeBeginningValue" />
     </div>
-    <div class="d-flex flex-column flex-md-row p-1">
+    <div class="d-flex flex-column flex-lg-row p-1">
         <label class="align-content-center"> End  &#10094; </label>
-        <input class="ms-md-3" type="datetime-local" placeholder="dd.mm.yyyy. hh:mm" [(ngModel)]="dateTimeEndValue" />
+        <input class="ms-lg-3" type="datetime-local"  [(ngModel)]="dateTimeEndValue" />
     </div>
-   <div class="d-flex flex-column flex-md-row p-1">
-            <button class="btn btn-search ms-md-3 mt-3 mt-md-0" type="button" (click)="searchShoppings()" > <i class='fa fa-search'></i> Search </button>
+   <div class="d-flex flex-column flex-lg-row p-1">
+            <button class="btn btn-search ms-lg-3 mt-3 mt-lg-0" type="button" (click)="searchShoppings()" > <i class='fa fa-search'></i> Search </button>
     </div>
 
 </div>
